@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
@@ -44,7 +44,7 @@ import java.awt.Dimension;
  * {@code LogoXPanel} is a special layout panel that handles some of the issues
  * that arise when hosting company logos within a GUI. Primarily it deals with
  * image-switching when the GUI background switches between light and dark
- * background colors. For this reason, it derives from {@link XPanel}. It is up
+ * background colors. For this reason, it derives from {@link JxPanel}. It is up
  * to the client to produce two contrasting images; usually this means white
  * text against a dark background and black text against a light background.
  *
@@ -52,7 +52,7 @@ import java.awt.Dimension;
  *
  * @author Mark Schmieder
  */
-public class LogoXPanel extends XPanel {
+public class JxLogoPanel extends JxPanel {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -100,7 +100,7 @@ public class LogoXPanel extends XPanel {
      *
      * @since 1.0
      */
-    public LogoXPanel( final ImageIcon darkBackgroundImageIcon,
+    public JxLogoPanel(final ImageIcon darkBackgroundImageIcon,
                        final ImageIcon lightBackgroundImageIcon,
                        final int leftMargin,
                        final int rightMargin ) {

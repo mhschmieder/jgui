@@ -21,72 +21,80 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
+import com.mhschmieder.jcontrols.control.JxComboBox;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Dimension;
 
-// NOTE: This class is used to format a single check box in a panel layout.
+// NOTE: This class is used to format a single combo box in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.
-public class CheckBoxPanel extends XPanel {
+public class JxComboBoxPanel extends JxPanel {
     /**
      * 
      */
-    private static final long   serialVersionUID    = 7722560034822777171L;
+    private static final long   serialVersionUID    = -1877746540154617225L;
 
     // //////////////////////////////////////////////////////////////////////////
     // Panel View Variables
-    public JCheckBox            _checkBox           = null;
+    public JLabel               _label              = null;
+    public JxComboBox _comboBox           = null;
 
     // //////////////////////////////////////////////////////////////////////////
     // Constructors and Initialization
-    public CheckBoxPanel(   final String text,
-                            final int mnemonic,
-                            final boolean selected ) {
+    public JxComboBoxPanel(final String label,
+                           final int mnemonic ) {
         // Always call the superclass constructor first!
         super();
 
         try {
-            initPanel( text, mnemonic, selected );
+            initPanel( label, mnemonic );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
         }
     }
 
-    private void initPanel( final String text,
-                            final int mnemonic,
-                            final boolean selected ) {
-        // Make the check box and set its main properties.
-        _checkBox = new JCheckBox();
-        _checkBox.setText( text );
+    public void addItem( final Object object, final boolean disabled ) {
+        // Forward this function to the combo box.
+        _comboBox.addItem( object, disabled );
+    }
 
-        // Add mnemonics/shortcuts for all components.
-        _checkBox.setMnemonic( mnemonic );
+    private void initPanel( final String label, final int mnemonic ) {
+        // Make the combo box and set its main properties.
+        _label = new JLabel( label );
+        _comboBox = new JxComboBox();
+
+        // Add mnemonics/shortcuts for all components, with all
+        // labels linked to their associated components as well.
+        _label.setLabelFor( _comboBox );
+        _label.setDisplayedMnemonic( mnemonic );
 
         // Left-align all components that would be centered by default.
-        _checkBox.setHorizontalAlignment( SwingConstants.LEFT );
+        _label.setHorizontalAlignment( SwingConstants.LEFT );
 
-        // Layout the check box panel with with its components, adding
-        // horizontal glue to ensure that the solitary check box is
+        // Layout the combo box panel with with its components, adding
+        // horizontal glue to ensure that the solitary combo box is
         // left-aligned and follows the formatting of higher components.
         setLayout( new BoxLayout( this, BoxLayout.LINE_AXIS ) );
-        setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 6 ) );
-        _checkBox.setSelected( selected );
-        add( _checkBox );
+        setBorder( BorderFactory.createEmptyBorder( 6, 6, 6, 6 ) );
+        add( _label );
+        add( Box.createRigidArea( new Dimension( 11, 11 ) ) );
+        add( _comboBox );
         add( Box.createHorizontalGlue() );
     }
 
@@ -95,7 +103,7 @@ public class CheckBoxPanel extends XPanel {
         super.setEnabled( enabled );
 
         // Forward this function to the subcomponents.
-        _checkBox.setEnabled( enabled );
+        _comboBox.setEnabled( enabled );
     }
 
     // This method sets the background color, and where appropriate, the
@@ -108,11 +116,13 @@ public class CheckBoxPanel extends XPanel {
         final Color foreColor = ColorUtilities
                 .getForegroundFromBackground( backColor );
 
-        _checkBox.setBackground( backColor );
-        _checkBox.setForeground( foreColor );
+        _label.setBackground( backColor );
+        _label.setForeground( foreColor );
+
+        // _comboBox.setForegroundFromBackground( backColor );
     }
 
     public final void setLabel( final String label ) {
-        _checkBox.setText( label );
+        _label.setText( label );
     }
 }

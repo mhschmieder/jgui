@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -53,7 +53,7 @@ import java.awt.LayoutManager;
  * <p>
  * There is no need to provide standard {code JPanel} and {code CardLayout}
  * based versions of this class, as the former doesn't contract to measure fonts
- * as does {@link XPanel}, and normally a panel that uses {@link CardLayout} is
+ * as does {@link JxPanel}, and normally a panel that uses {@link CardLayout} is
  * wrapped in at least one more top-level panel container due to anomalies in
  * Swing rendering when a {code CardLayout} is the top-most component in the
  * GUI hierarchy for a particular window or its main content pane.
@@ -62,7 +62,7 @@ import java.awt.LayoutManager;
  *
  * @author Mark Schmieder
  */
-public class TitledVectorizationXPanel extends VectorizationXPanel implements TitleManager {
+public class JxTitledVectorizationPanel extends JxVectorizationPanel implements TitleManager {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -104,7 +104,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
      *
      * @since 1.0
      */
-    public TitledVectorizationXPanel() {
+    public JxTitledVectorizationPanel() {
         // Always call the superclass constructor first!
         super();
     }
@@ -121,7 +121,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
      *
      * @since 1.0
      */
-    public TitledVectorizationXPanel( final boolean isDoubleBuffered ) {
+    public JxTitledVectorizationPanel(final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( isDoubleBuffered );
     }
@@ -135,7 +135,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
      *
      * @since 1.0
      */
-    public TitledVectorizationXPanel( final LayoutManager layout ) {
+    public JxTitledVectorizationPanel(final LayoutManager layout ) {
         // Always call the superclass constructor first!
         super( layout );
     }
@@ -152,7 +152,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
      *
      * @since 1.0
      */
-    public TitledVectorizationXPanel( final LayoutManager layout, final boolean isDoubleBuffered ) {
+    public JxTitledVectorizationPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( layout, isDoubleBuffered );
     }

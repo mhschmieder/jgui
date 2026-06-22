@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020, 2026 Mark Schmieder. All rights reserved.
+ * Copyright (c) 2024, 2026 Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-/**
- * This package contains the GuiToolkit Library's GUI classes and utilities that
- * aren't dependent on Swing or AWT sub-packages; that is, relate to Components.
- *
- * @version 1.0
- *
- * @author Mark Schmieder
- */
-package com.mhschmieder.jgui.component;
+module jgui {
+    exports com.mhschmieder.jgui.border;
+    exports com.mhschmieder.jgui.frame;
+    exports com.mhschmieder.jgui.layout;
+    exports com.mhschmieder.jgui.text;
+    exports com.mhschmieder.jgui.util;
+    requires commons.math3;
+    requires java.desktop;
+    requires jcommons;
+    requires jcontrols;
+    requires jgraphics;
+}

@@ -21,16 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.util;
 
 import com.mhschmieder.jcontrols.icon.IconFactory;
+import com.mhschmieder.jgui.layout.ButtonTabPanel;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -100,8 +101,8 @@ public class TabUtilities {
         tabbedPane.addTab( tabTitle, tabIcon, tabComponent );
         
         // Now, make a custom wrapper that supports closable tabs.
-        final ButtonTabComponent buttonTabComponent
-            = new ButtonTabComponent( tabbedPane, tabIcon );
+        final ButtonTabPanel buttonTabPanel
+            = new ButtonTabPanel( tabbedPane, tabIcon );
         
         // Find the index where the tab was added, to be on the safe side,
         // even though it is probably sufficient to call getTabCount().
@@ -111,7 +112,7 @@ public class TabUtilities {
         // the ButtonTabComponent custom wrapper class that allows for closing
         // the tab and that preserves its title, noting that we have to
         // "manually" reset the original tab icon here as well or it goes away.
-        tabbedPane.setTabComponentAt( tabIndex, buttonTabComponent );
+        tabbedPane.setTabComponentAt( tabIndex, buttonTabPanel);
     }
     
     /**

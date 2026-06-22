@@ -70,12 +70,12 @@ public final class RtfUtilities {
     /**
      * This is the W3C approved standard Mime Type for RTF Documents.
      */
-    @SuppressWarnings("nls") public static final String MIME_TYPE_RTF  = "text/rtf";
+    public static final String MIME_TYPE_RTF  = "text/rtf";
 
     /**
      * This is the W3C approved standard Mime Type for HTML Documents.
      */
-    @SuppressWarnings("nls") public static final String MIME_TYPE_HTML = "text/html";
+    public static final String MIME_TYPE_HTML = "text/html";
 
     /**
      * Returns a {@link String} containing a single aggregated HTML content
@@ -100,7 +100,6 @@ public final class RtfUtilities {
      *
      * @since 1.0
      */
-    @SuppressWarnings("nls")
     public static String rtfToHtml( final Reader rtfReader ) {
         // Unfortunately we must instantiate a non-displayed Swing GUI component
         // in order to gain access to the editor framework in Swing.
@@ -109,7 +108,8 @@ public final class RtfUtilities {
         // First get and set the editor kit and document model for RTF input.
         //
         // We must explicitly set the editor kit on the input format.
-        final EditorKit kitRtf = editorPane.getEditorKitForContentType( MIME_TYPE_RTF );
+        final EditorKit kitRtf = editorPane.getEditorKitForContentType(
+                MIME_TYPE_RTF );
         editorPane.setEditorKit( kitRtf );
         final Document rtfDocument = editorPane.getDocument();
 
@@ -120,7 +120,8 @@ public final class RtfUtilities {
             // Now get the editor kit and document model for HTML output.
             //
             // We only set the editor kit on the input format.
-            final EditorKit kitHtml = editorPane.getEditorKitForContentType( MIME_TYPE_HTML );
+            final EditorKit kitHtml = editorPane.getEditorKitForContentType(
+                    MIME_TYPE_HTML );
             final Document htmlDocument = editorPane.getDocument();
 
             // Write the HTML output from the editor framework.

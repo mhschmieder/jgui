@@ -21,17 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jgraphics.color.ColorUtilities;
-import com.mhschmieder.jgui.layout.CardManager;
 import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.BorderFactory;
@@ -42,7 +41,7 @@ import java.awt.Color;
 import java.awt.LayoutManager;
 
 /**
- * {@code CardXPanel} is a custom {@link XPanel} that wraps the usage of
+ * {@code CardXPanel} is a custom {@link JxPanel} that wraps the usage of
  * {@link CardLayout} in a way that addresses most of its deficiencies, such as
  * not caching the current Card Name, and its lack of flexibility in more
  * extensive GUI layout hierarchies.
@@ -51,7 +50,7 @@ import java.awt.LayoutManager;
  *
  * @author Mark Schmieder
  */
-public class CardXPanel extends XPanel implements CardManager {
+public class JxCardPanel extends JxPanel implements CardManager {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -92,7 +91,7 @@ public class CardXPanel extends XPanel implements CardManager {
      *
      * @since 1.0
      */
-    public CardXPanel() {
+    public JxCardPanel() {
         // Always call the superclass constructor first!
         super();
 
@@ -117,7 +116,7 @@ public class CardXPanel extends XPanel implements CardManager {
      *
      * @since 1.0
      */
-    public CardXPanel( final boolean isDoubleBuffered ) {
+    public JxCardPanel(final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( isDoubleBuffered );
 
@@ -140,7 +139,7 @@ public class CardXPanel extends XPanel implements CardManager {
      *
      * @since 1.0
      */
-    public CardXPanel( final LayoutManager layout ) {
+    public JxCardPanel(final LayoutManager layout ) {
         // Always call the superclass constructor first!
         super( layout );
 
@@ -166,7 +165,7 @@ public class CardXPanel extends XPanel implements CardManager {
      *
      * @since 1.0
      */
-    public CardXPanel( final LayoutManager layout, final boolean isDoubleBuffered ) {
+    public JxCardPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( layout, isDoubleBuffered );
 

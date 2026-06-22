@@ -21,17 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jcontrols.control.TableUtilities;
-import com.mhschmieder.jcontrols.control.XTable;
+import com.mhschmieder.jcontrols.control.JxTable;
 import com.mhschmieder.jcontrols.table.TableHeaderRenderer;
 import com.mhschmieder.jcontrols.table.TableInitializationUtilities;
 import com.mhschmieder.jcontrols.table.TableVectorizationUtilities;
@@ -55,14 +55,14 @@ import java.util.HashSet;
 
 /**
  * {@code TableXPanel} is an abstract base class that serves as a
- * specialization of {@link XPanel} that wraps an {@link XTable} in appropriate
+ * specialization of {@link JxPanel} that wraps an {@link JxTable} in appropriate
  * layout and with expected behavior for primary application content components.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public abstract class TableXPanel extends XPanel {
+public abstract class JxTablePanel extends JxPanel {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -99,7 +99,7 @@ public abstract class TableXPanel extends XPanel {
     /**
      * The Table that hosts the data.
      */
-    protected XTable          table;
+    protected JxTable table;
 
     /**
      * Flag for whether a Table Header is in use; {@code true} if so.
@@ -139,7 +139,7 @@ public abstract class TableXPanel extends XPanel {
      *
      * @since 1.0
      */
-    protected TableXPanel( final int firstColumn,
+    protected JxTablePanel(final int firstColumn,
                            final int lastColumn,
                            final boolean autoSelectionIsEnabled ) {
         // Always call the superclass constructor first!
@@ -286,7 +286,7 @@ public abstract class TableXPanel extends XPanel {
         // As we add a panel wrappers for tables vs. adding tables to components
         // directly, we lose the header and must re-add it later in the final
         // layout for the panel that wraps the scroll pane.
-        table = new XTable( tableModel,
+        table = new JxTable( tableModel,
                             columnAutoEdit,
                             columnAutoSelect,
                             selectionMode,

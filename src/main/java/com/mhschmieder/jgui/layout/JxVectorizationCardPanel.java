@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jgui.util.VectorSource;
 import com.mhschmieder.jgui.util.VectorizationManager;
@@ -38,7 +38,7 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 
 /**
- * {@code VectorizationCardXPanel} is an example of a {@link CardXPanel} that
+ * {@code VectorizationCardXPanel} is an example of a {@link JxCardPanel} that
  * can vectorize via a {@link Graphics2D} instance, and that can also be
  * composited with other such panels (or derivatives thereof) to complete a full
  * vectorization of the overall panel layout hierarchy contained by this panel.
@@ -52,7 +52,7 @@ import java.awt.LayoutManager;
  *
  * @author Mark Schmieder
  */
-public class VectorizationCardXPanel extends CardXPanel
+public class JxVectorizationCardPanel extends JxCardPanel
         implements VectorizationManager, VectorSource {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
@@ -84,7 +84,7 @@ public class VectorizationCardXPanel extends CardXPanel
      *
      * @since 1.0
      */
-    public VectorizationCardXPanel() {
+    public JxVectorizationCardPanel() {
         // Always call the superclass constructor first!
         super();
 
@@ -115,7 +115,7 @@ public class VectorizationCardXPanel extends CardXPanel
      *
      * @since 1.0
      */
-    public VectorizationCardXPanel( final boolean isDoubleBuffered ) {
+    public JxVectorizationCardPanel(final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( isDoubleBuffered );
 
@@ -143,7 +143,7 @@ public class VectorizationCardXPanel extends CardXPanel
      *
      * @since 1.0
      */
-    public VectorizationCardXPanel( final LayoutManager layout ) {
+    public JxVectorizationCardPanel(final LayoutManager layout ) {
         // Always call the superclass constructor first!
         super( layout );
 
@@ -174,7 +174,7 @@ public class VectorizationCardXPanel extends CardXPanel
      *
      * @since 1.0
      */
-    public VectorizationCardXPanel( final LayoutManager layout, final boolean isDoubleBuffered ) {
+    public JxVectorizationCardPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( layout, isDoubleBuffered );
 

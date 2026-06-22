@@ -21,18 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jcontrols.util.ForegroundManager;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
-import com.mhschmieder.jgui.util.RenderingHintSource;
+import com.mhschmieder.jgraphics.render.RenderingHintSource;
+import com.mhschmieder.jgraphics.util.ZBufferManager;
 
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
@@ -63,7 +64,7 @@ import java.awt.image.BufferedImage;
  *
  * @author Mark Schmieder
  */
-public class XPanel extends JPanel
+public class JxPanel extends JPanel
         implements RenderingHintSource, ForegroundManager, ZBufferManager {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
@@ -111,7 +112,7 @@ public class XPanel extends JPanel
      *
      * @since 1.0
      */
-    public XPanel() {
+    public JxPanel() {
         // Always call the superclass constructor first!
         super();
 
@@ -141,7 +142,7 @@ public class XPanel extends JPanel
      *
      * @since 1.0
      */
-    public XPanel( final boolean isDoubleBuffered ) {
+    public JxPanel(final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( isDoubleBuffered );
 
@@ -169,7 +170,7 @@ public class XPanel extends JPanel
      *
      * @since 1.0
      */
-    public XPanel( final LayoutManager layout ) {
+    public JxPanel(final LayoutManager layout ) {
         // Always call the superclass constructor first!
         super( layout );
 
@@ -200,7 +201,7 @@ public class XPanel extends JPanel
      *
      * @since 1.0
      */
-    public XPanel( final LayoutManager layout, final boolean isDoubleBuffered ) {
+    public JxPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( layout, isDoubleBuffered );
 

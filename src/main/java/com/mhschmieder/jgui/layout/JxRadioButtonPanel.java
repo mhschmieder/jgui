@@ -21,80 +21,72 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jgui Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jgui
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jgui
  */
-package com.mhschmieder.jgui.component;
+package com.mhschmieder.jgui.layout;
 
-import com.mhschmieder.jcontrols.control.XComboBox;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import java.awt.Color;
-import java.awt.Dimension;
 
-// NOTE: This class is used to format a single combo box in a panel layout.
+// NOTE: This class is used to format a single radio button in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.
-public class ComboBoxPanel extends XPanel {
+public class JxRadioButtonPanel extends JxPanel {
     /**
      * 
      */
-    private static final long   serialVersionUID    = -1877746540154617225L;
+    private static final long   serialVersionUID    = 7743960131821661786L;
 
     // //////////////////////////////////////////////////////////////////////////
     // Panel View Variables
-    public JLabel               _label              = null;
-    public XComboBox _comboBox           = null;
+    public JRadioButton         _radioButton        = null;
 
     // //////////////////////////////////////////////////////////////////////////
     // Constructors and Initialization
-    public ComboBoxPanel(   final String label,
-                            final int mnemonic ) {
+    public JxRadioButtonPanel(final String text,
+                              final int mnemonic,
+                              final boolean selected ) {
         // Always call the superclass constructor first!
         super();
 
         try {
-            initPanel( label, mnemonic );
+            initPanel( text, mnemonic, selected );
         }
         catch ( final Exception ex ) {
             ex.printStackTrace();
         }
     }
 
-    public void addItem( final Object object, final boolean disabled ) {
-        // Forward this function to the combo box.
-        _comboBox.addItem( object, disabled );
-    }
+    private void initPanel( final String text,
+                            final int mnemonic,
+                            final boolean selected ) {
+        // Make the radio button and set its main properties.
+        _radioButton = new JRadioButton();
+        _radioButton.setText( text );
 
-    private void initPanel( final String label, final int mnemonic ) {
-        // Make the combo box and set its main properties.
-        _label = new JLabel( label );
-        _comboBox = new XComboBox();
-
-        // Add mnemonics/shortcuts for all components, with all
-        // labels linked to their associated components as well.
-        _label.setLabelFor( _comboBox );
-        _label.setDisplayedMnemonic( mnemonic );
+        // Add mnemonics/shortcuts for all components.
+        _radioButton.setMnemonic( mnemonic );
 
         // Left-align all components that would be centered by default.
-        _label.setHorizontalAlignment( SwingConstants.LEFT );
+        _radioButton.setHorizontalAlignment( SwingConstants.LEFT );
 
-        // Layout the combo box panel with with its components, adding
-        // horizontal glue to ensure that the solitary combo box is
+        // Layout the radio button panel with with its components, adding
+        // horizontal glue to ensure that the solitary radio button is
         // left-aligned and follows the formatting of higher components.
         setLayout( new BoxLayout( this, BoxLayout.LINE_AXIS ) );
-        setBorder( BorderFactory.createEmptyBorder( 6, 6, 6, 6 ) );
-        add( _label );
-        add( Box.createRigidArea( new Dimension( 11, 11 ) ) );
-        add( _comboBox );
+        setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 6 ) );
+        _radioButton.setSelected( selected );
+        add( _radioButton );
         add( Box.createHorizontalGlue() );
     }
 
@@ -103,7 +95,7 @@ public class ComboBoxPanel extends XPanel {
         super.setEnabled( enabled );
 
         // Forward this function to the subcomponents.
-        _comboBox.setEnabled( enabled );
+        _radioButton.setEnabled( enabled );
     }
 
     // This method sets the background color, and where appropriate, the
@@ -116,13 +108,11 @@ public class ComboBoxPanel extends XPanel {
         final Color foreColor = ColorUtilities
                 .getForegroundFromBackground( backColor );
 
-        _label.setBackground( backColor );
-        _label.setForeground( foreColor );
-
-        // _comboBox.setForegroundFromBackground( backColor );
+        _radioButton.setBackground( backColor );
+        _radioButton.setForeground( foreColor );
     }
 
     public final void setLabel( final String label ) {
-        _label.setText( label );
+        _radioButton.setText( label );
     }
 }
