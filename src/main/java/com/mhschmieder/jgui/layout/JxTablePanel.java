@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.jgui.layout;
 
-import com.mhschmieder.jcontrols.control.TableUtilities;
 import com.mhschmieder.jcontrols.control.JxTable;
+import com.mhschmieder.jcontrols.control.TableUtilities;
 import com.mhschmieder.jcontrols.table.TableHeaderRenderer;
 import com.mhschmieder.jcontrols.table.TableInitializationUtilities;
 import com.mhschmieder.jcontrols.table.TableVectorizationUtilities;
