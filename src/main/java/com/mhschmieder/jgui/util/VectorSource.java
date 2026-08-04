@@ -48,23 +48,21 @@ import java.awt.Graphics2D;
  * graphics oriented panels, and have derived panel classes forward their own
  * method overrides to those of the sub-panels in those component's layouts.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public interface VectorSource {
 
     /**
-     * Returns the status of whether the vectorization succeeded (if {@code
-     * true}) or not (if {@code false}).
+     * Returns the status of whether the vectorization succeeded (if
+     * {@code true}) or not (if {@code false}).
      * <p>
      * This method vectorizes the vector source, usually via paintComponent().
      *
-     * @param graphicsContext
-     *            The {@link Graphics2D} Graphics Context for vectorizing the
-     *            content of the object that implements this interface
+     * @param graphicsContext The {@link Graphics2D} Graphics Context for
+     *                        vectorizing the content of the object that
+     *                        implements this interface
      * @return {@code true} if the export succeeded; {@code false} if it failed
-     *
      * @since 1.0
      */
     boolean vectorize( final Graphics2D graphicsContext );
@@ -79,7 +77,6 @@ public interface VectorSource {
      *
      * @return The x-coordinate of the top left corner of the vector source's
      *         bounding box.
-     *
      * @since 1.0
      */
     double getVectorSourceMinX();
@@ -94,7 +91,6 @@ public interface VectorSource {
      *
      * @return The y-coordinate of the top left corner of the vector source's
      *         bounding box.
-     *
      * @since 1.0
      */
     double getVectorSourceMinY();
@@ -109,7 +105,6 @@ public interface VectorSource {
      *
      * @return The x-coordinate of the bottom right corner of the vector
      *         source's bounding box.
-     *
      * @since 1.0
      */
     double getVectorSourceMaxX();
@@ -124,9 +119,7 @@ public interface VectorSource {
      *
      * @return The y-coordinate of the bottom right corner of the vector
      *         source's bounding box.
-     *
      * @since 1.0
      */
     double getVectorSourceMaxY();
-
 }

@@ -33,9 +33,10 @@ package com.mhschmieder.jgui.layout;
 import com.mhschmieder.jgui.util.VectorSource;
 import com.mhschmieder.jgui.util.VectorizationManager;
 
-import javax.swing.JPanel;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
 
 /**
  * {@code VectorizationPanel} is an example of a Swing {@link JPanel} that can
@@ -43,29 +44,31 @@ import java.awt.LayoutManager;
  * with other such panels (or derivatives thereof) to complete a full
  * vectorization of the overall panel layout hierarchy contained by this panel.
  * It provides enough basic functionality that not every client application or
- * layout container will need to customize it further through class inheritance.
+ * layout container will need to customize it further through class
+ * inheritance.
  * <p>
  * Usually this class will be used for secondary panels within a larger window
  * layout, with the more advanced version used as the main container panel.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
-public class VectorizationPanel extends JPanel implements VectorizationManager, VectorSource {
+public class VectorizationPanel extends JPanel
+        implements VectorizationManager, VectorSource {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 3882924495408274376L;
 
     /**
      * Indicator of whether vectorization is active. This flag may be needed in
-     * certain {@code paintComponent()} method overrides, as z-buffer
-     * activities are often order-dependent and/or the backing image
-     * regeneration may need to happen either first or last. Also, some content
-     * might need to be excluded from vectorization on a case by case basis.
+     * certain {@code paintComponent()} method overrides, as z-buffer activities
+     * are often order-dependent and/or the backing image regeneration may need
+     * to happen either first or last. Also, some content might need to be
+     * excluded from vectorization on a case by case basis.
      */
-    private boolean           vectorizationActive;
+    private boolean vectorizationActive;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -93,15 +96,29 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
     }
 
     /**
+     * Initializes this panel in an encapsulated way that protects all
+     * constructors from run-time exceptions that might prevent instantiation.
+     * <p>
+     * The method is declared final, as any derived classes should avoid
+     * unwanted side effects and simply write their own GUI initialization
+     * method that adds any extended behaviour or components to the layout.
+     *
+     * @since 1.0
+     */
+    private final void initPanel() {
+        // Vectorization is initially turned off, until requested by the user.
+        vectorizationActive = false;
+    }
+
+    /**
      * Creates a new {@code VectorizationPanel} instance with a
      * {@code FlowLayout} and the specified buffering strategy. If
      * {@code isDoubleBuffered} is {@code true}, the {@code VectorizationPanel}
      * will use a double buffer.
      *
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
      * @since 1.0
      */
     public VectorizationPanel( final boolean isDoubleBuffered ) {
@@ -122,9 +139,7 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      * Creates a new {@code VectorizationPanel} instance with the specified
      * {@link LayoutManager} and a double buffer.
      *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     *
+     * @param layout The {@link LayoutManager} to use for panel layout
      * @since 1.0
      */
     public VectorizationPanel( final LayoutManager layout ) {
@@ -141,19 +156,21 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
         }
     }
 
+    /////////////////////// Initialization methods ///////////////////////////
+
     /**
      * Creates a new {@code VectorizationPanel} instance with the specified
      * {@link LayoutManager} and buffering strategy.
      *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
+     * @param layout           The {@link LayoutManager} to use for panel
+     *                         layout
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
      * @since 1.0
      */
-    public VectorizationPanel( final LayoutManager layout, final boolean isDoubleBuffered ) {
+    public VectorizationPanel( final LayoutManager layout,
+                               final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( layout, isDoubleBuffered );
 
@@ -167,23 +184,6 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
         }
     }
 
-    /////////////////////// Initialization methods ///////////////////////////
-
-    /**
-     * Initializes this panel in an encapsulated way that protects all
-     * constructors from run-time exceptions that might prevent instantiation.
-     * <p>
-     * The method is declared final, as any derived classes should avoid
-     * unwanted side effects and simply write their own GUI initialization
-     * method that adds any extended behaviour or components to the layout.
-     *
-     * @since 1.0
-     */
-    private final void initPanel() {
-        // Vectorization is initially turned off, until requested by the user.
-        vectorizationActive = false;
-    }
-
     ////////////// VectorizationManager implementation methods ///////////////
 
     /**
@@ -192,7 +192,6 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      *
      * @return {@code true} if vectorization is active, {@code false} if
      *         inactive
-     *
      * @since 1.0
      */
     @Override
@@ -204,9 +203,8 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      * Sets the vectorization active state to active ({@code true}) or inactive
      * ({@code false}).
      *
-     * @param active
-     *            True to indicate vectorization is active, False if inactive
-     *
+     * @param active True to indicate vectorization is active, False if
+     *               inactive
      * @since 1.0
      */
     @Override
@@ -231,11 +229,9 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      * layout component or a lower-level one (or called multiple times for
      * sub-panels).
      *
-     * @param graphicsContext
-     *            The {@link Graphics2D} Graphics Context for vectorizing the
-     *            content of this panel
+     * @param graphicsContext The {@link Graphics2D} Graphics Context for
+     *                        vectorizing the content of this panel
      * @return {@code true} if the export succeeded; {@code false} if it failed
-     *
      * @since 1.0
      */
     @Override
@@ -269,7 +265,6 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      *
      * @return The x-coordinate of the top left corner of the vector source's
      *         bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -283,7 +278,6 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      *
      * @return The y-coordinate of the top left corner of the vector source's
      *         bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -297,7 +291,6 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      *
      * @return The x-coordinate of the bottom right corner of the vector
      *         source's bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -311,7 +304,6 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
      *
      * @return The y-coordinate of the bottom right corner of the vector
      *         source's bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -319,5 +311,4 @@ public class VectorizationPanel extends JPanel implements VectorizationManager, 
         final int vectorSourceMaxY = getY() + getHeight();
         return vectorSourceMaxY;
     }
-
 }

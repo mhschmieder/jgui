@@ -33,9 +33,10 @@ package com.mhschmieder.jgui.layout;
 import com.mhschmieder.jgui.util.VectorSource;
 import com.mhschmieder.jgui.util.VectorizationManager;
 
-import javax.swing.JPanel;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
 
 /**
  * {@code VectorizationCardXPanel} is an example of a {@link JxCardPanel} that
@@ -43,30 +44,31 @@ import java.awt.LayoutManager;
  * composited with other such panels (or derivatives thereof) to complete a full
  * vectorization of the overall panel layout hierarchy contained by this panel.
  * It provides enough basic functionality that not every client application or
- * layout container will need to customize it further through class inheritance.
+ * layout container will need to customize it further through class
+ * inheritance.
  * <p>
  * Usually this class will be used for secondary panels within a larger window
  * layout, with the more advanced version used as the main container panel.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public class JxVectorizationCardPanel extends JxCardPanel
         implements VectorizationManager, VectorSource {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = -2913407904530163318L;
 
     /**
      * Indicator of whether vectorization is active. This flag may be needed in
-     * certain {@code paintComponent()} method overrides, as z-buffer
-     * activities are often order-dependent and/or the backing image
-     * regeneration may need to happen either first or last. Also, some content
-     * might need to be excluded from vectorization on a case by case basis.
+     * certain {@code paintComponent()} method overrides, as z-buffer activities
+     * are often order-dependent and/or the backing image regeneration may need
+     * to happen either first or last. Also, some content might need to be
+     * excluded from vectorization on a case by case basis.
      */
-    private boolean           vectorizationActive;
+    private boolean vectorizationActive;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -99,6 +101,21 @@ public class JxVectorizationCardPanel extends JxCardPanel
     }
 
     /**
+     * Initializes this panel in an encapsulated way that protects all
+     * constructors from run-time exceptions that might prevent instantiation.
+     * <p>
+     * The method is declared final, as any derived classes should avoid
+     * unwanted side effects and simply write their own GUI initialization
+     * method that adds any extended behaviour or components to the layout.
+     *
+     * @since 1.0
+     */
+    private final void initPanel() {
+        // Vectorization is initially turned off, until requested by the user.
+        vectorizationActive = false;
+    }
+
+    /**
      * Creates a new {@code VectorizationCardXPanel} instance with a
      * {@code FlowLayout} and the specified buffering strategy. If
      * {@code isDoubleBuffered} is {@code true}, the
@@ -109,13 +126,12 @@ public class JxVectorizationCardPanel extends JxCardPanel
      * extended version of {@link JPanel} is for supporting complex graphics
      * such as charts and large collections of graphical shapes.
      *
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
      * @since 1.0
      */
-    public JxVectorizationCardPanel(final boolean isDoubleBuffered ) {
+    public JxVectorizationCardPanel( final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( isDoubleBuffered );
 
@@ -138,45 +154,12 @@ public class JxVectorizationCardPanel extends JxCardPanel
      * extended version of {@link JPanel} is for supporting complex graphics
      * such as charts and large collections of graphical shapes.
      *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     *
+     * @param layout The {@link LayoutManager} to use for panel layout
      * @since 1.0
      */
-    public JxVectorizationCardPanel(final LayoutManager layout ) {
+    public JxVectorizationCardPanel( final LayoutManager layout ) {
         // Always call the superclass constructor first!
         super( layout );
-
-        // Avoid constructor failure by wrapping the layout initialization in an
-        // exception handler that logs the exception and then returns an object.
-        try {
-            initPanel();
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a new {@code VectorizationCardXPanel} instance with the specified
-     * {@link LayoutManager} and buffering strategy.
-     * <p>
-     * Please note that the double buffering in this case refers strictly to the
-     * GUI layout components; the special z-buffering implemented by this
-     * extended version of {@link JPanel} is for supporting complex graphics
-     * such as charts and large collections of graphical shapes.
-     *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
-     * @since 1.0
-     */
-    public JxVectorizationCardPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
-        // Always call the superclass constructor first!
-        super( layout, isDoubleBuffered );
 
         // Avoid constructor failure by wrapping the layout initialization in an
         // exception handler that logs the exception and then returns an object.
@@ -191,18 +174,34 @@ public class JxVectorizationCardPanel extends JxCardPanel
     /////////////////////// Initialization methods ///////////////////////////
 
     /**
-     * Initializes this panel in an encapsulated way that protects all
-     * constructors from run-time exceptions that might prevent instantiation.
+     * Creates a new {@code VectorizationCardXPanel} instance with the specified
+     * {@link LayoutManager} and buffering strategy.
      * <p>
-     * The method is declared final, as any derived classes should avoid
-     * unwanted side effects and simply write their own GUI initialization
-     * method that adds any extended behaviour or components to the layout.
+     * Please note that the double buffering in this case refers strictly to the
+     * GUI layout components; the special z-buffering implemented by this
+     * extended version of {@link JPanel} is for supporting complex graphics
+     * such as charts and large collections of graphical shapes.
      *
+     * @param layout           The {@link LayoutManager} to use for panel
+     *                         layout
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
      * @since 1.0
      */
-    private final void initPanel() {
-        // Vectorization is initially turned off, until requested by the user.
-        vectorizationActive = false;
+    public JxVectorizationCardPanel( final LayoutManager layout,
+                                     final boolean isDoubleBuffered ) {
+        // Always call the superclass constructor first!
+        super( layout, isDoubleBuffered );
+
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
+        try {
+            initPanel();
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+        }
     }
 
     ////////////// VectorizationManager implementation methods ///////////////
@@ -213,7 +212,6 @@ public class JxVectorizationCardPanel extends JxCardPanel
      *
      * @return {@code true} if vectorization is active, {@code false }if
      *         inactive
-     *
      * @since 1.0
      */
     @Override
@@ -225,10 +223,8 @@ public class JxVectorizationCardPanel extends JxCardPanel
      * Sets the vectorization active state to active ({@code true}) or inactive
      * ({@code false}).
      *
-     * @param active
-     *            {@code true} to indicate vectorization is active,
-     *            {@code false} if inactive
-     *
+     * @param active {@code true} to indicate vectorization is active,
+     *               {@code false} if inactive
      * @since 1.0
      */
     @Override
@@ -253,11 +249,9 @@ public class JxVectorizationCardPanel extends JxCardPanel
      * layout component or a lower-level one (or called multiple times for
      * sub-panels).
      *
-     * @param graphicsContext
-     *            The {@link Graphics2D} Graphics Context for vectorizing the
-     *            content of this panel
+     * @param graphicsContext The {@link Graphics2D} Graphics Context for
+     *                        vectorizing the content of this panel
      * @return {@code true} if the export succeeded; {@code false} if it failed
-     *
      * @since 1.0
      */
     @Override
@@ -291,7 +285,6 @@ public class JxVectorizationCardPanel extends JxCardPanel
      *
      * @return The x-coordinate of the top left corner of the vector source's
      *         bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -305,7 +298,6 @@ public class JxVectorizationCardPanel extends JxCardPanel
      *
      * @return The y-coordinate of the top left corner of the vector source's
      *         bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -319,7 +311,6 @@ public class JxVectorizationCardPanel extends JxCardPanel
      *
      * @return The x-coordinate of the bottom right corner of the vector
      *         source's bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -333,7 +324,6 @@ public class JxVectorizationCardPanel extends JxCardPanel
      *
      * @return The y-coordinate of the bottom right corner of the vector
      *         source's bounding box.
-     *
      * @since 1.0
      */
     @Override
@@ -341,5 +331,4 @@ public class JxVectorizationCardPanel extends JxCardPanel
         final int vectorSourceMaxY = getY() + getHeight();
         return vectorSourceMaxY;
     }
-
 }

@@ -30,7 +30,6 @@
  */
 package com.mhschmieder.jgui.layout;
 
-import javax.swing.JPanel;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -38,12 +37,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JPanel;
+
 /**
  * A simple panel that draws a checker board with the color over it.
  */
 public class ColorPanel extends JPanel {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 1060448530831374209L;
 
@@ -58,7 +60,7 @@ public class ColorPanel extends JPanel {
     private int offscreenImageWidth;
 
     private Color color;
-    
+
     public ColorPanel() {
         // Always call the superclass constructor first!
         super();
@@ -77,13 +79,12 @@ public class ColorPanel extends JPanel {
         final int alpha = color.getAlpha();
         if ( alpha < 255 ) {
             // See if we need to create our off-screen buffer
-            if ( ( offScreenImage == null )
-                    || ( offscreenImageHeight != getHeight() )
-                    || ( offscreenImageWidth != getWidth() ) ) {
-                offScreenImage = new BufferedImage(
-                        getWidth(),
-                        getHeight(),
-                        BufferedImage.TYPE_INT_RGB );
+            if ( ( offScreenImage == null ) || ( offscreenImageHeight
+                                                 != getHeight() ) || (
+                         offscreenImageWidth != getWidth() ) ) {
+                offScreenImage = new BufferedImage( getWidth(),
+                                                    getHeight(),
+                                                    BufferedImage.TYPE_INT_RGB );
 
                 offScreenGraphics = offScreenImage.createGraphics();
 
@@ -107,8 +108,7 @@ public class ColorPanel extends JPanel {
                 }
             }
 
-            final Composite currentComposite
-                    = offScreenGraphics.getComposite();
+            final Composite currentComposite = offScreenGraphics.getComposite();
 
             // Set opacity to the alpha of the color
             offScreenGraphics.setComposite( AlphaComposite.getInstance(
@@ -123,7 +123,8 @@ public class ColorPanel extends JPanel {
 
             // Draw the image to the screen
             g.drawImage( offScreenImage, 0, 0, null );
-        } else {
+        }
+        else {
             // Set the color and draw over the existing box
             g.setColor( color );
             g.fillRect( 0, 0, getWidth(), getHeight() );

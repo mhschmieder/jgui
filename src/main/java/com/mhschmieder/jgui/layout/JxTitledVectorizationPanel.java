@@ -32,13 +32,14 @@ package com.mhschmieder.jgui.layout;
 
 import org.apache.commons.math3.util.FastMath;
 
-import javax.swing.JPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+
+import javax.swing.JPanel;
 
 /**
  * {@code TitledVectorizationXPanel} is an example of a top-level Swing
@@ -55,43 +56,41 @@ import java.awt.LayoutManager;
  * based versions of this class, as the former doesn't contract to measure fonts
  * as does {@link JxPanel}, and normally a panel that uses {@link CardLayout} is
  * wrapped in at least one more top-level panel container due to anomalies in
- * Swing rendering when a {code CardLayout} is the top-most component in the
- * GUI hierarchy for a particular window or its main content pane.
- *
- * @version 1.0
+ * Swing rendering when a {code CardLayout} is the top-most component in the GUI
+ * hierarchy for a particular window or its main content pane.
  *
  * @author Mark Schmieder
+ * @version 1.0
  */
-public class JxTitledVectorizationPanel extends JxVectorizationPanel implements TitleManager {
-    /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
-     */
-    private static final long serialVersionUID     = -5197086100207909216L;
-
+public class JxTitledVectorizationPanel extends JxVectorizationPanel
+        implements TitleManager {
     /**
      * Guarantee additional padding to prevent the header title from clipping.
      */
-    public static final int   TITLE_PADDING_TOP    = 6;
-
+    public static final int TITLE_PADDING_TOP = 6;
     /**
      * Guarantee additional padding to account for title font descenders.
      */
-    public static final int   TITLE_PADDING_BOTTOM = 12;
-
+    public static final int TITLE_PADDING_BOTTOM = 12;
+    /**
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
+     */
+    private static final long serialVersionUID = -5197086100207909216L;
     /**
      * The header title, to be used during vectorization but not for display.
      */
-    protected String          title;
+    protected String title;
 
     /**
      * Declare the {@link Font} for the header title.
      */
-    protected Font            titleFont;
+    protected Font titleFont;
 
     /**
      * Declare the {@link FontMetrics} for the header title.
      */
-    protected FontMetrics     titleFontMetrics;
+    protected FontMetrics titleFontMetrics;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -115,13 +114,12 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * {@code isDoubleBuffered} is {@code true}, the
      * {@code TitledVectorizationXPanel} will use a double buffer.
      *
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
      * @since 1.0
      */
-    public JxTitledVectorizationPanel(final boolean isDoubleBuffered ) {
+    public JxTitledVectorizationPanel( final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( isDoubleBuffered );
     }
@@ -130,12 +128,10 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * Creates a new {@code TitledVectorizationXPanel} instance with the
      * specified {@link LayoutManager} and a double buffer.
      *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     *
+     * @param layout The {@link LayoutManager} to use for panel layout
      * @since 1.0
      */
-    public JxTitledVectorizationPanel(final LayoutManager layout ) {
+    public JxTitledVectorizationPanel( final LayoutManager layout ) {
         // Always call the superclass constructor first!
         super( layout );
     }
@@ -144,15 +140,15 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * Creates a new {@code TitledVectorizationXPanel} instance with the
      * specified {@link LayoutManager} and buffering strategy.
      *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
+     * @param layout           The {@link LayoutManager} to use for panel
+     *                         layout
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
      * @since 1.0
      */
-    public JxTitledVectorizationPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
+    public JxTitledVectorizationPanel( final LayoutManager layout,
+                                       final boolean isDoubleBuffered ) {
         // Always call the superclass constructor first!
         super( layout, isDoubleBuffered );
     }
@@ -163,7 +159,6 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * Returns the title that is managed by this panel.
      *
      * @return The title that is managed by this panel
-     *
      * @since 1.0
      */
     @Override
@@ -177,16 +172,16 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * vector graphics output pages anyway) and avoiding null pointers by
      * replacing with empty titles.
      *
-     * @param newTitle
-     *            The header title that is managed by this panel
-     *
+     * @param newTitle The header title that is managed by this panel
      * @since 1.0
      */
     @Override
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     public final void setTitle( final String newTitle ) {
         // Replace null titles with empty titles, to avoid run-time errors.
-        title = ( newTitle != null ) ? newTitle.trim() : "";
+        title = ( newTitle != null )
+                ? newTitle.trim()
+                : "";
     }
 
     /**
@@ -195,7 +190,6 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      *
      * @return The x coordinate of the absolute position of the header title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     @Override
@@ -211,7 +205,6 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      *
      * @return The y coordinate of the absolute position of the header title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     @Override
@@ -230,14 +223,14 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      *
      * @return The x coordinate of the relative position of the header title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     @Override
     public int getTitleOffsetX() {
         // Center the header title over the entire panel.
         final int titleWidth = titleFontMetrics.stringWidth( title );
-        final int titleOffsetX = ( int ) FastMath.round( 0.5d * ( getWidth() - titleWidth ) );
+        final int titleOffsetX = ( int ) FastMath.round(
+                0.5d * ( getWidth() - titleWidth ) );
         return titleOffsetX;
     }
 
@@ -251,7 +244,6 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      *
      * @return The y coordinate of the relative position of the header title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     @Override
@@ -260,7 +252,8 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
         //
         // Note that we assume a one-line header title with no word wrap.
         final int titleHeight = titleFontMetrics.getHeight();
-        final int titleOffsetY = FastMath.round( TITLE_PADDING_TOP + titleHeight );
+        final int titleOffsetY = FastMath.round(
+                TITLE_PADDING_TOP + titleHeight );
         return titleOffsetY;
     }
 
@@ -274,10 +267,8 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * header title at the top of the visible layout of the existing page
      * layout, adding it above the existing on-screen content.
      *
-     * @param graphicsContext
-     *            The {@link Graphics2D} Graphics Context to use for drawing the
-     *            header title
-     *
+     * @param graphicsContext The {@link Graphics2D} Graphics Context to use for
+     *                        drawing the header title
      * @since 1.0
      */
     @Override
@@ -302,9 +293,11 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
         // in the overall bounding box computed for the total page output.
         final int titleOffsetY = getTitleOffsetY();
         final int titleAdjustmentY = titleOffsetY + TITLE_PADDING_BOTTOM;
-        graphicsContext
-                .translate( graphicsContext.getTransform().getTranslateX(),
-                            graphicsContext.getTransform().getTranslateY() + titleAdjustmentY );
+        graphicsContext.translate( graphicsContext.getTransform()
+                                                  .getTranslateX(),
+                                   graphicsContext.getTransform()
+                                                  .getTranslateY()
+                                   + titleAdjustmentY );
 
         // Restore the previous color and font.
         graphicsContext.setColor( color );
@@ -323,8 +316,8 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * their own overrides; it simply enforces that the header title is always
      * drawn during Vector Graphics Export, and how it is drawn.
      *
-     * @param graphicsContext
-     *            The wrapped Graphics Context to vectorize the content to
+     * @param graphicsContext The wrapped Graphics Context to vectorize the
+     *                        content to
      * @return The status of whether this export succeeded or not
      */
     @Override
@@ -342,13 +335,13 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
      * @return The x-coordinate of the bottom right corner of this panel's
      *         bounding box, adjusted for the prepended title's font height,
      *         along with extra intra-element padding.
-     *
      * @since 1.0
      */
     @Override
     public double getVectorSourceMaxY() {
         final int titleOffsetY = getTitleOffsetY();
-        final float vectorSourceMaxY = getY() + titleOffsetY + TITLE_PADDING_BOTTOM + getHeight();
+        final float vectorSourceMaxY = getY() + titleOffsetY
+                                       + TITLE_PADDING_BOTTOM + getHeight();
         return vectorSourceMaxY;
     }
 
@@ -371,5 +364,4 @@ public class JxTitledVectorizationPanel extends JxVectorizationPanel implements 
 
         titleFontMetrics = getFontMetrics( titleFont );
     }
-
 }

@@ -33,12 +33,13 @@ package com.mhschmieder.jgui.layout;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 import org.apache.commons.math3.util.FastMath;
 
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.LayoutManager;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 /**
  * {@code CardXPanel} is a custom {@link JxPanel} that wraps the usage of
@@ -46,13 +47,13 @@ import java.awt.LayoutManager;
  * not caching the current Card Name, and its lack of flexibility in more
  * extensive GUI layout hierarchies.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public class JxCardPanel extends JxPanel implements CardManager {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = -8906522526548892969L;
 
@@ -61,25 +62,25 @@ public class JxCardPanel extends JxPanel implements CardManager {
      * combinations in inherited classes, than if we apply the
      * {@link CardLayout} to the overall panel.
      */
-    protected JPanel          cardSubpanel;
+    protected JPanel cardSubpanel;
 
     /**
      * We have to locally cache the {@link CardLayout} as it isn't set on the
      * main panel and thus is more efficient to access this way than via the
      * Card sub-panel when we need to cycle the cards.
      */
-    protected CardLayout      cardLayout;
+    protected CardLayout cardLayout;
 
     /**
      * Keep track of how many cards there are, so we can cycle when necessary.
      */
-    private int               numberOfCards;
+    private int numberOfCards;
 
     /**
      * Cache the current selected Card Name, as the {@link CardLayout} API
      * provides no way to query this.
      */
-    private String            cardName;
+    private String cardName;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -106,82 +107,6 @@ public class JxCardPanel extends JxPanel implements CardManager {
     }
 
     /**
-     * Creates a new {@code CardXPanel} instance with a {@code FlowLayout} and
-     * the specified buffering strategy. If {@code isDoubleBuffered} is
-     * {@code true}, the {@code CardXPanel} will use a double buffer.
-     *
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
-     * @since 1.0
-     */
-    public JxCardPanel(final boolean isDoubleBuffered ) {
-        // Always call the superclass constructor first!
-        super( isDoubleBuffered );
-
-        // Avoid constructor failure by wrapping the layout initialization in an
-        // exception handler that logs the exception and then returns an object.
-        try {
-            initPanel();
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a new {@code CardXPanel} instance with the specified
-     * {@link LayoutManager} and a double buffer.
-     *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     *
-     * @since 1.0
-     */
-    public JxCardPanel(final LayoutManager layout ) {
-        // Always call the superclass constructor first!
-        super( layout );
-
-        // Avoid constructor failure by wrapping the layout initialization in an
-        // exception handler that logs the exception and then returns an object.
-        try {
-            initPanel();
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a new {@code CardXPanel} instance with the specified
-     * {@link LayoutManager} and buffering strategy.
-     *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
-     * @since 1.0
-     */
-    public JxCardPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
-        // Always call the superclass constructor first!
-        super( layout, isDoubleBuffered );
-
-        // Avoid constructor failure by wrapping the layout initialization in an
-        // exception handler that logs the exception and then returns an object.
-        try {
-            initPanel();
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-        }
-    }
-
-    /////////////////////// Initialization methods ///////////////////////////
-
-    /**
      * Initializes this panel in an encapsulated way that protects all
      * constructors from run-time exceptions that might prevent instantiation.
      * <p>
@@ -204,6 +129,79 @@ public class JxCardPanel extends JxPanel implements CardManager {
         add( cardSubpanel, BorderLayout.CENTER );
     }
 
+    /**
+     * Creates a new {@code CardXPanel} instance with a {@code FlowLayout} and
+     * the specified buffering strategy. If {@code isDoubleBuffered} is
+     * {@code true}, the {@code CardXPanel} will use a double buffer.
+     *
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
+     * @since 1.0
+     */
+    public JxCardPanel( final boolean isDoubleBuffered ) {
+        // Always call the superclass constructor first!
+        super( isDoubleBuffered );
+
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
+        try {
+            initPanel();
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a new {@code CardXPanel} instance with the specified
+     * {@link LayoutManager} and a double buffer.
+     *
+     * @param layout The {@link LayoutManager} to use for panel layout
+     * @since 1.0
+     */
+    public JxCardPanel( final LayoutManager layout ) {
+        // Always call the superclass constructor first!
+        super( layout );
+
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
+        try {
+            initPanel();
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////// Initialization methods ///////////////////////////
+
+    /**
+     * Creates a new {@code CardXPanel} instance with the specified
+     * {@link LayoutManager} and buffering strategy.
+     *
+     * @param layout           The {@link LayoutManager} to use for panel
+     *                         layout
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
+     * @since 1.0
+     */
+    public JxCardPanel( final LayoutManager layout,
+                        final boolean isDoubleBuffered ) {
+        // Always call the superclass constructor first!
+        super( layout, isDoubleBuffered );
+
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
+        try {
+            initPanel();
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     ////////////////// CardManager implementation methods ////////////////////
 
     /**
@@ -213,9 +211,8 @@ public class JxCardPanel extends JxPanel implements CardManager {
      * call this method during panel initialization than to set it in a
      * constructor as a final variable.
      *
-     * @param numberOfCardsToAllow
-     *            The number of Cards to allow; set to zero if negative.
-     *
+     * @param numberOfCardsToAllow The number of Cards to allow; set to zero if
+     *                             negative.
      * @since 1.0
      */
     @Override
@@ -243,9 +240,7 @@ public class JxCardPanel extends JxPanel implements CardManager {
      * Shows the named Card by switching the current active Card based on the
      * supplied Card Name.
      *
-     * @param cardNameToShow
-     *            The name of the Card to show. Must be valid.
-     *
+     * @param cardNameToShow The name of the Card to show. Must be valid.
      * @since 1.0
      */
     @Override
@@ -258,7 +253,6 @@ public class JxCardPanel extends JxPanel implements CardManager {
      * Return the currently selected Card Name.
      *
      * @return The name of the current selected Card.
-     *
      * @since 1.0
      */
     @Override
@@ -273,7 +267,7 @@ public class JxCardPanel extends JxPanel implements CardManager {
      *
      * @since 1.0
      */
-    @SuppressWarnings("nls")
+    @SuppressWarnings( "nls" )
     @Override
     protected void initVariables() {
         // Always call the superclass first!
@@ -296,9 +290,7 @@ public class JxCardPanel extends JxPanel implements CardManager {
      * method override, before adding support for GUI elements unique to the
      * derived class hierarchy.
      *
-     * @param backColor
-     *            The current background color to apply to this panel
-     *
+     * @param backColor The current background color to apply to this panel
      * @since 1.0
      */
     @Override
@@ -307,7 +299,8 @@ public class JxCardPanel extends JxPanel implements CardManager {
         super.setForegroundFromBackground( backColor );
 
         // Make sure the foreground color is never masked by the background.
-        final Color foreColor = ColorUtilities.getForegroundFromBackground( backColor );
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
 
         // Forward this method to the subcomponents.
         cardSubpanel.setBackground( backColor );
@@ -316,5 +309,4 @@ public class JxCardPanel extends JxPanel implements CardManager {
         // Any change to background requires regenerating the off-screen buffer.
         regenerateOffScreenImage = true;
     }
-
 }

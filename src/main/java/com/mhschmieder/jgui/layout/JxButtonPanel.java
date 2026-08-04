@@ -30,10 +30,11 @@
  */
 package com.mhschmieder.jgui.layout;
 
+import java.awt.FlowLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
 
 // NOTE: This class is used to format a single button in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.
@@ -41,20 +42,22 @@ public class JxButtonPanel extends JxPanel {
     /**
      *
      */
-    private static final long   serialVersionUID    = -5728612449257406141L;
-    
-    // //////////////////////////////////////////////////////////////////////////
+    private static final long serialVersionUID = -5728612449257406141L;
+
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Panel View Variables
-    public JButton              _button             = null;
-    
-    // //////////////////////////////////////////////////////////////////////////
+    public JButton _button = null;
+
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Constructors and Initialization
-    public JxButtonPanel(final JButton button,
-                         final int mnemonic,
-                         final int align ) {
+    public JxButtonPanel( final JButton button,
+                          final int mnemonic,
+                          final int align ) {
         // Always call the superclass constructor first!
         super();
-    
+
         try {
             initPanel( button, mnemonic, align );
         }
@@ -62,27 +65,27 @@ public class JxButtonPanel extends JxPanel {
             ex.printStackTrace();
         }
     }
-    
-    protected void initPanel(   final JButton button,
-                                final int mnemonic,
-                                final int align ) {
+
+    protected void initPanel( final JButton button,
+                              final int mnemonic,
+                              final int align ) {
         // Set the button and its main properties.
         _button = button;
-    
+
         // Add mnemonics/shortcuts for all components.
         _button.setMnemonic( mnemonic );
-    
+
         // Layout the button panel with with its components.
         setLayout( new FlowLayout( align ) );
         setBorder( BorderFactory.createEmptyBorder( 6, 6, 6, 6 ) );
         add( _button );
         add( Box.createHorizontalGlue() );
     }
-    
+
     @Override
     public void setEnabled( final boolean enabled ) {
         super.setEnabled( enabled );
-    
+
         // Forward this function to the subcomponents.
         _button.setEnabled( enabled );
     }

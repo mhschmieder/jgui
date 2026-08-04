@@ -33,31 +33,34 @@ package com.mhschmieder.jgui.layout;
 import com.mhschmieder.jcontrols.control.JxComboBox;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Dimension;
 
 // NOTE: This class is used to format a single combo box in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.
 public class JxComboBoxPanel extends JxPanel {
     /**
-     * 
+     *
      */
-    private static final long   serialVersionUID    = -1877746540154617225L;
+    private static final long serialVersionUID = -1877746540154617225L;
 
-    // //////////////////////////////////////////////////////////////////////////
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Panel View Variables
-    public JLabel               _label              = null;
-    public JxComboBox _comboBox           = null;
+    public JLabel _label = null;
+    public JxComboBox _comboBox = null;
 
-    // //////////////////////////////////////////////////////////////////////////
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Constructors and Initialization
-    public JxComboBoxPanel(final String label,
-                           final int mnemonic ) {
+    public JxComboBoxPanel( final String label,
+                            final int mnemonic ) {
         // Always call the superclass constructor first!
         super();
 
@@ -69,12 +72,8 @@ public class JxComboBoxPanel extends JxPanel {
         }
     }
 
-    public void addItem( final Object object, final boolean disabled ) {
-        // Forward this function to the combo box.
-        _comboBox.addItem( object, disabled );
-    }
-
-    private void initPanel( final String label, final int mnemonic ) {
+    private void initPanel( final String label,
+                            final int mnemonic ) {
         // Make the combo box and set its main properties.
         _label = new JLabel( label );
         _comboBox = new JxComboBox();
@@ -98,12 +97,10 @@ public class JxComboBoxPanel extends JxPanel {
         add( Box.createHorizontalGlue() );
     }
 
-    @Override
-    public void setEnabled( final boolean enabled ) {
-        super.setEnabled( enabled );
-
-        // Forward this function to the subcomponents.
-        _comboBox.setEnabled( enabled );
+    public void addItem( final Object object,
+                         final boolean disabled ) {
+        // Forward this function to the combo box.
+        _comboBox.addItem( object, disabled );
     }
 
     // This method sets the background color, and where appropriate, the
@@ -113,13 +110,21 @@ public class JxComboBoxPanel extends JxPanel {
         super.setForegroundFromBackground( backColor );
 
         // Forward this function to the subcomponents.
-        final Color foreColor = ColorUtilities
-                .getForegroundFromBackground( backColor );
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
 
         _label.setBackground( backColor );
         _label.setForeground( foreColor );
 
         // _comboBox.setForegroundFromBackground( backColor );
+    }
+
+    @Override
+    public void setEnabled( final boolean enabled ) {
+        super.setEnabled( enabled );
+
+        // Forward this function to the subcomponents.
+        _comboBox.setEnabled( enabled );
     }
 
     public final void setLabel( final String label ) {

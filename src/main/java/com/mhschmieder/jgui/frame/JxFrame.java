@@ -33,14 +33,15 @@ package com.mhschmieder.jgui.frame;
 import com.mhschmieder.jcontrols.util.ForegroundManager;
 import com.mhschmieder.jgraphics.render.RenderingHintSource;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.HeadlessException;
 import java.awt.RenderingHints;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 /**
  * {@code XFrame} is an enhanced frame base class for Swing that adds
@@ -55,20 +56,21 @@ import java.awt.RenderingHints;
  * This class is skeletal for now, so that the release of all related libraries
  * is not held up any further.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
-public class JxFrame extends JFrame implements RenderingHintSource, ForegroundManager {
+public class JxFrame extends JFrame
+        implements RenderingHintSource, ForegroundManager {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = -6381420940841300763L;
 
     /**
      * Keep a cached copy of the Rendering Hints for this frame.
      */
-    private RenderingHints    renderingHints;
+    private RenderingHints renderingHints;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -80,18 +82,14 @@ public class JxFrame extends JFrame implements RenderingHintSource, ForegroundMa
      * The title in this case is the initial title, as this class manages the
      * dirty flag for the frame and modifies the frame title bar accordingly.
      *
-     * @param title
-     *            The initial title to use for the frame
-     * @param resizable
-     *            {@code true} if this frame is resizable by the user;
-     *            {@code false} otherwise
-     * @throws HeadlessException
-     *             If {@code GraphicsEnvironment.isHeadless()} returns
-     *             {@code true}
-     *
-     * @version 1.0
+     * @param title     The initial title to use for the frame
+     * @param resizable {@code true} if this frame is resizable by the user;
+     *                  {@code false} otherwise
+     * @throws HeadlessException If {@code GraphicsEnvironment.isHeadless()}
+     *                           returns {@code true}
      */
-    public JxFrame(final String title, final boolean resizable ) throws HeadlessException {
+    public JxFrame( final String title,
+                    final boolean resizable ) throws HeadlessException {
         // Always call the superclass constructor first!
         super( title );
 
@@ -173,9 +171,7 @@ public class JxFrame extends JFrame implements RenderingHintSource, ForegroundMa
     /**
      * Returns the {@link RenderingHints} that are applied to this panel.
      *
-     * @return
-     *         The {@link RenderingHints} that are applied to this panel
-     *
+     * @return The {@link RenderingHints} that are applied to this panel
      * @since 1.0
      */
     @Override
@@ -191,9 +187,8 @@ public class JxFrame extends JFrame implements RenderingHintSource, ForegroundMa
      * layout hierarchy. Any overrides should call their super-class, and then
      * go about setting the {@link RenderingHints} for all layout components.
      *
-     * @param parentRenderingHints
-     *            The {@link RenderingHints} to apply to this panel
-     *
+     * @param parentRenderingHints The {@link RenderingHints} to apply to this
+     *                             panel
      * @since 1.0
      */
     @Override
@@ -215,9 +210,7 @@ public class JxFrame extends JFrame implements RenderingHintSource, ForegroundMa
      * method override, before adding support for GUI elements unique to the
      * derived class hierarchy.
      *
-     * @param backColor
-     *            The current background color to apply to this frame
-     *
+     * @param backColor The current background color to apply to this frame
      * @since 1.0
      */
     @Override
@@ -232,5 +225,4 @@ public class JxFrame extends JFrame implements RenderingHintSource, ForegroundMa
         // use it to cycle through the panels and other components that form its
         // main content, invoking this method on each of them in turn.
     }
-
 }

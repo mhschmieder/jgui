@@ -32,13 +32,14 @@ package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Dimension;
 
 /**
  * {@code LogoXPanel} is a special layout panel that handles some of the issues
@@ -48,33 +49,34 @@ import java.awt.Dimension;
  * to the client to produce two contrasting images; usually this means white
  * text against a dark background and black text against a light background.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public class JxLogoPanel extends JxPanel {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 3736056155127323883L;
 
     /**
-     * This {@link ImageIcon} contains the logo to use for dark GUI backgrounds.
+     * This {@link ImageIcon} contains the logo to use for dark GUI
+     * backgrounds.
      */
-    private final ImageIcon   logoForDarkBackground;
+    private final ImageIcon logoForDarkBackground;
 
     /**
      * This {@link ImageIcon} contains the logo to use for light GUI
      * backgrounds.
      */
-    private final ImageIcon   logoForLightBackground;
+    private final ImageIcon logoForLightBackground;
 
     /**
      * Use a {@link JLabel} to host the active {@link ImageIcon} containing the
      * Logo image, pre-loaded by the client so that they have complete
      * flexibility in whether to construct it or load it from a JAR resource.
      */
-    private JLabel            logoLabel;
+    private JLabel logoLabel;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -85,25 +87,22 @@ public class JxLogoPanel extends JxPanel {
      * class and superclass should not be used as they will fail to assign the
      * {@link ImageIcon} for the Logo and thus result in a blank panel.
      *
-     * @param darkBackgroundImageIcon
-     *            The {@link ImageIcon} to use as the Logo for dark GUI
-     *            backgrounds
-     * @param lightBackgroundImageIcon
-     *            The {@link ImageIcon} to use as the Logo for light GUI
-     *            backgrounds
-     * @param leftMargin
-     *            The margin to leave within the {@link JLabel} host for the
-     *            Logo on its left side
-     * @param rightMargin
-     *            The margin to leave within the {@link JLabel} host for the
-     *            Logo on its right side
-     *
+     * @param darkBackgroundImageIcon  The {@link ImageIcon} to use as the Logo
+     *                                 for dark GUI backgrounds
+     * @param lightBackgroundImageIcon The {@link ImageIcon} to use as the Logo
+     *                                 for light GUI backgrounds
+     * @param leftMargin               The margin to leave within the
+     *                                 {@link JLabel} host for the Logo on its
+     *                                 left side
+     * @param rightMargin              The margin to leave within the
+     *                                 {@link JLabel} host for the Logo on its
+     *                                 right side
      * @since 1.0
      */
-    public JxLogoPanel(final ImageIcon darkBackgroundImageIcon,
-                       final ImageIcon lightBackgroundImageIcon,
-                       final int leftMargin,
-                       final int rightMargin ) {
+    public JxLogoPanel( final ImageIcon darkBackgroundImageIcon,
+                        final ImageIcon lightBackgroundImageIcon,
+                        final int leftMargin,
+                        final int rightMargin ) {
         // Always call the superclass constructor first!
         super();
 
@@ -128,16 +127,14 @@ public class JxLogoPanel extends JxPanel {
      * unwanted side effects and simply write their own GUI initialization
      * method that adds any extended behaviour or components to the layout.
      *
-     * @param leftMargin
-     *            The margin to leave within the {@link JLabel} host for the
-     *            Logo on its left side
-     * @param rightMargin
-     *            The margin to leave within the {@link JLabel} host for the
-     *            Logo on its right side
-     *
+     * @param leftMargin  The margin to leave within the {@link JLabel} host for
+     *                    the Logo on its left side
+     * @param rightMargin The margin to leave within the {@link JLabel} host for
+     *                    the Logo on its right side
      * @since 1.0
      */
-    private final void initPanel( final int leftMargin, final int rightMargin ) {
+    private final void initPanel( final int leftMargin,
+                                  final int rightMargin ) {
         // Make sure the Logo Label doesn't have a beveled border, as this
         // causes white vertical lines on the left and right edges of the icon.
         logoLabel = new JLabel();
@@ -153,7 +150,10 @@ public class JxLogoPanel extends JxPanel {
         // is used so that derived classes can easily add a Copyright Notice
         // below the Logo Label if necessary.
         setLayout( new BoxLayout( this, BoxLayout.PAGE_AXIS ) );
-        setBorder( BorderFactory.createEmptyBorder( 10, leftMargin, 10, rightMargin ) );
+        setBorder( BorderFactory.createEmptyBorder( 10,
+                                                    leftMargin,
+                                                    10,
+                                                    rightMargin ) );
         add( logoLabel );
 
         // This panel needs to be given an initial size, or else other
@@ -175,9 +175,8 @@ public class JxLogoPanel extends JxPanel {
      * method override, before adding support for GUI elements unique to the
      * derived class hierarchy.
      *
-     * @param backColor
-     *            The current background color to apply to the layout hierarchy
-     *
+     * @param backColor The current background color to apply to the layout
+     *                  hierarchy
      * @since 1.0
      */
     @Override
@@ -186,15 +185,16 @@ public class JxLogoPanel extends JxPanel {
         super.setForegroundFromBackground( backColor );
 
         // Make sure the foreground color is never masked by the background.
-        final Color foreColor = ColorUtilities.getForegroundFromBackground( backColor );
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
 
         // Switch the active Logo based on this panel's background color.
         //
         // We do this before setting the Label's background, to make sure the
         // Logo doesn't overwrite the borders of the Label container.
         final ImageIcon logoIcon = ColorUtilities.isColorDark( backColor )
-            ? logoForDarkBackground
-            : logoForLightBackground;
+                                   ? logoForDarkBackground
+                                   : logoForLightBackground;
         logoLabel.setIcon( logoIcon );
 
         // By setting the Label's background and foreground last, we can
@@ -205,5 +205,4 @@ public class JxLogoPanel extends JxPanel {
         // Any change to background requires regenerating the off-screen buffer.
         regenerateOffScreenImage = true;
     }
-
 }// class LogoXPanel

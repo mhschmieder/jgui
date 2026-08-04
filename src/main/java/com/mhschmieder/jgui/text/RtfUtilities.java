@@ -32,10 +32,6 @@ package com.mhschmieder.jgui.text;
 
 import com.mhschmieder.jcommons.io.IoUtilities;
 
-import javax.swing.JEditorPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.EditorKit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -44,60 +40,102 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
+import javax.swing.JEditorPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.EditorKit;
+
 /**
  * {@code RtfUtilities} is a utilities class for handling the RTF format, and
  * especially for converting from RTF to HTML. Although it must make use of the
  * Swing toolkit to accomplish this, the functionality is still closely related
  * to the rest of this library's emphasis on AWT as the Swing invocations are
- * strictly to gain access to the necessary conversion methods and don't
- * require an actual Swing GUI for the application that uses these utilities.
+ * strictly to gain access to the necessary conversion methods and don't require
+ * an actual Swing GUI for the application that uses these utilities.
  * <p>
- * This class and its methods should be reviewed to see if they are too
- * specific compared to what they actually do; perhaps the methods should add
- * parameters for the source and destination MIME types, and see what all works?
- *
- * @version 1.0
+ * This class and its methods should be reviewed to see if they are too specific
+ * compared to what they actually do; perhaps the methods should add parameters
+ * for the source and destination MIME types, and see what all works?
  *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public final class RtfUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
-     */
-    private RtfUtilities() {}
-
-    /**
      * This is the W3C approved standard Mime Type for RTF Documents.
      */
-    public static final String MIME_TYPE_RTF  = "text/rtf";
-
+    public static final String MIME_TYPE_RTF = "text/rtf";
     /**
      * This is the W3C approved standard Mime Type for HTML Documents.
      */
     public static final String MIME_TYPE_HTML = "text/html";
 
     /**
+     * The default constructor is disabled, as this is a static utilities
+     * class.
+     */
+    private RtfUtilities() {
+    }
+
+    /**
      * Returns a {@link String} containing a single aggregated HTML content
      * stream, as converted from the original RTF content.
      * <p>
-     * This method translates RTF content to HTML using some little-known
-     * Swing toolkit methods that are hidden away on the {@link JEditorPane}
-     * class. There is no need for the invoker of this method to be part of a
-     * Swing GUI application. Functions started getting placed in some strange
-     * places when the "javax" package name was added for Swing and other
-     * functionality beyond the original AWT toolkit.
+     * This method translates RTF content to HTML using some little-known Swing
+     * toolkit methods that are hidden away on the {@link JEditorPane} class.
+     * There is no need for the invoker of this method to be part of a Swing GUI
+     * application. Functions started getting placed in some strange places when
+     * the "javax" package name was added for Swing and other functionality
+     * beyond the original AWT toolkit.
      * <p>
      * The main problem with this Swing dependency is that this may cause
      * problems with modularization later on, as Swing may otherwise not get
      * pulled into every build, so it's best to avoid when it isn't key to the
      * application's GUI.
      *
-     * @param rtfReader
-     *            The {@link Reader} that wraps the RTF content to translate to
-     *            HTML
+     * @param rtfFilename The name of the file that contains the RTF content to
+     *                    translate to HTML
      * @return The original RTF content converted to a single HTML string
+     * @since 1.0
+     */
+    public static String rtfToHtml( final String rtfFilename ) {
+        // Read the RTF file contents into a String and convert to HTML.
+        try ( final InputStream inputStream =
+                      RtfUtilities.class.getResourceAsStream(
+                rtfFilename ) ) {
+            // Convert the text based file to a standard string message.
+            final String rtfContent = IoUtilities.streamToString( inputStream,
+                                                                  StandardCharsets.UTF_8 );
+            final String htmlContent
+                    = rtfToHtml( new StringReader( rtfContent ) );
+            return htmlContent;
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Returns a {@link String} containing a single aggregated HTML content
+     * stream, as converted from the original RTF content.
+     * <p>
+     * This method translates RTF content to HTML using some little-known Swing
+     * toolkit methods that are hidden away on the {@link JEditorPane} class.
+     * There is no need for the invoker of this method to be part of a Swing GUI
+     * application. Functions started getting placed in some strange places when
+     * the "javax" package name was added for Swing and other functionality
+     * beyond the original AWT toolkit.
+     * <p>
+     * The main problem with this Swing dependency is that this may cause
+     * problems with modularization later on, as Swing may otherwise not get
+     * pulled into every build, so it's best to avoid when it isn't key to the
+     * application's GUI.
      *
+     * @param rtfReader The {@link Reader} that wraps the RTF content to
+     *                  translate to HTML
+     * @return The original RTF content converted to a single HTML string
      * @since 1.0
      */
     public static String rtfToHtml( final Reader rtfReader ) {
@@ -138,44 +176,4 @@ public final class RtfUtilities {
         // Avoid downstream problems by returning an empty string.
         return "";
     }
-
-    /**
-     * Returns a {@link String} containing a single aggregated HTML content
-     * stream, as converted from the original RTF content.
-     * <p>
-     * This method translates RTF content to HTML using some little-known
-     * Swing toolkit methods that are hidden away on the {@link JEditorPane}
-     * class. There is no need for the invoker of this method to be part of a
-     * Swing GUI application. Functions started getting placed in some strange
-     * places when the "javax" package name was added for Swing and other
-     * functionality beyond the original AWT toolkit.
-     * <p>
-     * The main problem with this Swing dependency is that this may cause
-     * problems with modularization later on, as Swing may otherwise not get
-     * pulled into every build, so it's best to avoid when it isn't key to the
-     * application's GUI.
-     *
-     * @param rtfFilename
-     *            The name of the file that contains the RTF content to
-     *            translate to HTML
-     * @return The original RTF content converted to a single HTML string
-     *
-     * @since 1.0
-     */
-    public static String rtfToHtml( final String rtfFilename ) {
-        // Read the RTF file contents into a String and convert to HTML.
-        try ( final InputStream inputStream = RtfUtilities.class
-                .getResourceAsStream( rtfFilename ) ) {
-            // Convert the text based file to a standard string message.
-            final String rtfContent = IoUtilities.streamToString( inputStream,
-                                                                  StandardCharsets.UTF_8 );
-            final String htmlContent = rtfToHtml( new StringReader( rtfContent ) );
-            return htmlContent;
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }

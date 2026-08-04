@@ -32,29 +32,31 @@ package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Dimension;
 
 public class JxLabeledTextFieldPanel extends JxPanel {
     /**
-     * 
+     *
      */
-    private static final long   serialVersionUID    = -242007208527899012L;
-
-    // //////////////////////////////////////////////////////////////////////////
+    private static final long serialVersionUID = -242007208527899012L;
+    public JTextField _textField = null;
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Panel View Variables
-    private JLabel              _label              = null;
-    public JTextField           _textField          = null;
+    private JLabel _label = null;
 
-    // //////////////////////////////////////////////////////////////////////////
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Constructors and Initialization
-    public JxLabeledTextFieldPanel(final String labelText,
-                                   final char mnemonic,
-                                   final int textFieldSize ) {
+    public JxLabeledTextFieldPanel( final String labelText,
+                                    final char mnemonic,
+                                    final int textFieldSize ) {
         // Always call the superclass constructor first!
         super();
 
@@ -66,14 +68,9 @@ public class JxLabeledTextFieldPanel extends JxPanel {
         }
     }
 
-    public final String getText() {
-        // Forward this to the text field.
-        return _textField.getText();
-    }
-
-    private final void initPanel(   final String labelText,
-                                    final char mnemonic,
-                                    final int textFieldSize ) {
+    private final void initPanel( final String labelText,
+                                  final char mnemonic,
+                                  final int textFieldSize ) {
         // Now that we have the label text, we can make the label.
         _label = new JLabel( labelText, SwingConstants.LEADING );
 
@@ -104,13 +101,14 @@ public class JxLabeledTextFieldPanel extends JxPanel {
         setMaximumSize( new Dimension( getPreferredSize().width, 40 ) );
     }
 
-    @Override
-    public void setEnabled( final boolean enabled ) {
-        super.setEnabled( enabled );
+    public final String getText() {
+        // Forward this to the text field.
+        return _textField.getText();
+    }
 
-        // Forward this function to the subcomponents.
-        _label.setEnabled( enabled );
-        _textField.setEnabled( enabled );
+    public final void setText( final String text ) {
+        // Forward this to the text field.
+        _textField.setText( text );
     }
 
     // This method sets the background color, and where appropriate, the
@@ -120,15 +118,19 @@ public class JxLabeledTextFieldPanel extends JxPanel {
         super.setForegroundFromBackground( backColor );
 
         // Forward this function to the subcomponents.
-        final Color foreColor = ColorUtilities
-                .getForegroundFromBackground( backColor );
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
 
         _label.setBackground( backColor );
         _label.setForeground( foreColor );
     }
 
-    public final void setText( final String text ) {
-        // Forward this to the text field.
-        _textField.setText( text );
+    @Override
+    public void setEnabled( final boolean enabled ) {
+        super.setEnabled( enabled );
+
+        // Forward this function to the subcomponents.
+        _label.setEnabled( enabled );
+        _textField.setEnabled( enabled );
     }
 }

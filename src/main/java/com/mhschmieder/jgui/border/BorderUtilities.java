@@ -32,25 +32,27 @@ package com.mhschmieder.jgui.border;
 
 import com.mhschmieder.jgraphics.color.ColorConstants;
 
+import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.Color;
 
 /**
  * {@code BorderUtilities} is a utility class for working more effectively and
  * consistently with custom borders.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public final class BorderUtilities {
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
+     * The default constructor is disabled, as this is a static utilities
+     * class.
      */
-    private BorderUtilities() {}
+    private BorderUtilities() {
+    }
 
     /**
      * Returns a {@link TitledBorder} that is stylized to stand out well in
@@ -64,18 +66,17 @@ public final class BorderUtilities {
      * <p>
      * This particular set of parameters should be Nimbus-compatible.
      *
-     * @param title
-     *            The title to apply to the border decoration
+     * @param title The title to apply to the border decoration
      * @return A {@link TitledBorder} that is stylized to stand out well
-     *
      * @since 1.0
      */
     public static TitledBorder makeTitledBorder( final String title ) {
         final EtchedBorder etchedBorder = new EtchedBorder( EtchedBorder.RAISED,
                                                             Color.WHITE,
                                                             ColorConstants.GRAY55 );
-        final TitledBorder titledBorder = BorderFactory.createTitledBorder( etchedBorder, title );
+        final TitledBorder titledBorder = BorderFactory.createTitledBorder(
+                etchedBorder,
+                title );
         return titledBorder;
     }
-
 }

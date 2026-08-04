@@ -35,10 +35,6 @@ import com.mhschmieder.jgraphics.color.ColorUtilities;
 import com.mhschmieder.jgraphics.render.RenderingHintSource;
 import com.mhschmieder.jgraphics.util.ZBufferManager;
 
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -48,6 +44,11 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 /**
  * {@code XPanel} is an enhanced panel base class for Swing that adds
@@ -60,33 +61,27 @@ import java.awt.image.BufferedImage;
  * various vector graphics export formats, the most notoriously picky being EPS
  * due to its lack of support for alpha compositing and other transparencies.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public class JxPanel extends JPanel
         implements RenderingHintSource, ForegroundManager, ZBufferManager {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 8162753813950838670L;
-
-    /**
-     * Keep a cached copy of the Rendering Hints for this panel.
-     */
-    private RenderingHints    renderingHints;
-
     /**
      * This flag indicates to the {@code paintComponent} method that the
      * off-screen z-buffer needs to be regenerated. It is a manual dirty flag
-     * for layout rendering, and graphics output is composited manually as well.
+     * for layout rendering, and graphics output is composited manually as
+     * well.
      * <p>
      * Off-screen z-buffering is the responsibility of the client, as it would
      * not otherwise be possible to guarantee correct compositing of downstream
      * graphics operations, whether for on-screen rendering or graphics output.
      */
-    protected boolean         regenerateOffScreenImage;
-
+    protected boolean regenerateOffScreenImage;
     /**
      * The off-screen image is used for accelerating graphics using traditional
      * off-screen z-buffering.
@@ -95,7 +90,11 @@ public class JxPanel extends JPanel
      * not otherwise be possible to guarantee correct compositing of downstream
      * graphics operations, whether for on-screen rendering or EPS Export.
      */
-    protected BufferedImage   offScreenImage;
+    protected BufferedImage offScreenImage;
+    /**
+     * Keep a cached copy of the Rendering Hints for this panel.
+     */
+    private RenderingHints renderingHints;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -125,97 +124,6 @@ public class JxPanel extends JPanel
             e.printStackTrace();
         }
     }
-
-    /**
-     * Creates a new {@code XPanel} instance with a {@code FlowLayout} and the
-     * specified buffering strategy. If {@code isDoubleBuffered} is
-     * {@code true}, the {@code XPanel} will use a double buffer.
-     * <p>
-     * Please note that the double buffering in this case refers strictly to the
-     * GUI layout components; the special z-buffering implemented by this
-     * extended version of {@link JPanel} is for supporting complex graphics
-     * such as charts and large collections of graphical shapes.
-     *
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
-     * @since 1.0
-     */
-    public JxPanel(final boolean isDoubleBuffered ) {
-        // Always call the superclass constructor first!
-        super( isDoubleBuffered );
-
-        // Avoid constructor failure by wrapping the layout initialization in an
-        // exception handler that logs the exception and then returns an object.
-        try {
-            initPanel();
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a new {@code XPanel} instance with the specified
-     * {@link LayoutManager} and a double buffer.
-     * <p>
-     * Please note that the double buffering in this case refers strictly to the
-     * GUI layout components; the special z-buffering implemented by this
-     * extended version of {@link JPanel} is for supporting complex graphics
-     * such as charts and large collections of graphical shapes.
-     *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     *
-     * @since 1.0
-     */
-    public JxPanel(final LayoutManager layout ) {
-        // Always call the superclass constructor first!
-        super( layout );
-
-        // Avoid constructor failure by wrapping the layout initialization in an
-        // exception handler that logs the exception and then returns an object.
-        try {
-            initPanel();
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a new {@code XPanel} instance with the specified
-     * {@link LayoutManager} and buffering strategy.
-     * <p>
-     * Please note that the double buffering in this case refers strictly to the
-     * GUI layout components; the special z-buffering implemented by this
-     * extended version of {@link JPanel} is for supporting complex graphics
-     * such as charts and large collections of graphical shapes.
-     *
-     * @param layout
-     *            The {@link LayoutManager} to use for panel layout
-     * @param isDoubleBuffered
-     *            {@code true} for double-buffering, which uses additional
-     *            memory space to achieve fast, flicker-free updates
-     *
-     * @since 1.0
-     */
-    public JxPanel(final LayoutManager layout, final boolean isDoubleBuffered ) {
-        // Always call the superclass constructor first!
-        super( layout, isDoubleBuffered );
-
-        // Avoid constructor failure by wrapping the layout initialization in an
-        // exception handler that logs the exception and then returns an object.
-        try {
-            initPanel();
-        }
-        catch ( final Exception e ) {
-            e.printStackTrace();
-        }
-    }
-
-    /////////////////////// Initialization methods ///////////////////////////
 
     /**
      * Initializes this panel in an encapsulated way that protects all
@@ -248,7 +156,8 @@ public class JxPanel extends JPanel
      *
      * @since 1.0
      */
-    protected void loadResources() {}
+    protected void loadResources() {
+    }
 
     /**
      * Measures all of the class-level cached fonts used by this panel.
@@ -259,7 +168,10 @@ public class JxPanel extends JPanel
      *
      * @since 1.0
      */
-    protected void measureFonts() {}
+    protected void measureFonts() {
+    }
+
+    /////////////////////// Initialization methods ///////////////////////////
 
     /**
      * Initializes all class variables, to avoid null pointers at startup.
@@ -276,6 +188,92 @@ public class JxPanel extends JPanel
         regenerateOffScreenImage = true;
     }
 
+    /**
+     * Creates a new {@code XPanel} instance with a {@code FlowLayout} and the
+     * specified buffering strategy. If {@code isDoubleBuffered} is
+     * {@code true}, the {@code XPanel} will use a double buffer.
+     * <p>
+     * Please note that the double buffering in this case refers strictly to the
+     * GUI layout components; the special z-buffering implemented by this
+     * extended version of {@link JPanel} is for supporting complex graphics
+     * such as charts and large collections of graphical shapes.
+     *
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
+     * @since 1.0
+     */
+    public JxPanel( final boolean isDoubleBuffered ) {
+        // Always call the superclass constructor first!
+        super( isDoubleBuffered );
+
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
+        try {
+            initPanel();
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a new {@code XPanel} instance with the specified
+     * {@link LayoutManager} and a double buffer.
+     * <p>
+     * Please note that the double buffering in this case refers strictly to the
+     * GUI layout components; the special z-buffering implemented by this
+     * extended version of {@link JPanel} is for supporting complex graphics
+     * such as charts and large collections of graphical shapes.
+     *
+     * @param layout The {@link LayoutManager} to use for panel layout
+     * @since 1.0
+     */
+    public JxPanel( final LayoutManager layout ) {
+        // Always call the superclass constructor first!
+        super( layout );
+
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
+        try {
+            initPanel();
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a new {@code XPanel} instance with the specified
+     * {@link LayoutManager} and buffering strategy.
+     * <p>
+     * Please note that the double buffering in this case refers strictly to the
+     * GUI layout components; the special z-buffering implemented by this
+     * extended version of {@link JPanel} is for supporting complex graphics
+     * such as charts and large collections of graphical shapes.
+     *
+     * @param layout           The {@link LayoutManager} to use for panel
+     *                         layout
+     * @param isDoubleBuffered {@code true} for double-buffering, which uses
+     *                         additional memory space to achieve fast,
+     *                         flicker-free updates
+     * @since 1.0
+     */
+    public JxPanel( final LayoutManager layout,
+                    final boolean isDoubleBuffered ) {
+        // Always call the superclass constructor first!
+        super( layout, isDoubleBuffered );
+
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
+        try {
+            initPanel();
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     ////////////////////// Model/View syncing methods ////////////////////////
 
     /**
@@ -287,16 +285,16 @@ public class JxPanel extends JPanel
      * no data changed.
      *
      * @return {@code true} if the model changed after syncing it from the view
-     *
      * @since 1.0
      */
-    @SuppressWarnings("static-method")
+    @SuppressWarnings( "static-method" )
     public boolean updateModel() {
         return false;
     }
 
     /**
-     * Syncs the view to the data model hierarchically on the full panel layout.
+     * Syncs the view to the data model hierarchically on the full panel
+     * layout.
      * <p>
      * As not all derived classes have data to sync, declaring this as abstract
      * is the wrong approach, so we provide a default implementation that is a
@@ -304,16 +302,15 @@ public class JxPanel extends JPanel
      *
      * @since 1.0
      */
-    public void updateView() {}
+    public void updateView() {
+    }
 
     ////////////// RenderingHintSource implementation methods ////////////////
 
     /**
      * Returns the {@link RenderingHints} that are applied to this panel.
      *
-     * @return
-     *         The {@link RenderingHints} that are applied to this panel
-     *
+     * @return The {@link RenderingHints} that are applied to this panel
      * @since 1.0
      */
     @Override
@@ -329,9 +326,8 @@ public class JxPanel extends JPanel
      * layout hierarchy. Any overrides should call their super-class, and then
      * go about setting the {@link RenderingHints} for all layout components.
      *
-     * @param parentRenderingHints
-     *            The {@link RenderingHints} to apply to this panel
-     *
+     * @param parentRenderingHints The {@link RenderingHints} to apply to this
+     *                             panel
      * @since 1.0
      */
     @Override
@@ -353,15 +349,14 @@ public class JxPanel extends JPanel
      * method override, before adding support for GUI elements unique to the
      * derived class hierarchy.
      *
-     * @param backColor
-     *            The current background color to apply to this panel
-     *
+     * @param backColor The current background color to apply to this panel
      * @since 1.0
      */
     @Override
     public void setForegroundFromBackground( final Color backColor ) {
         // Make sure the foreground color is never masked by the background.
-        final Color foreColor = ColorUtilities.getForegroundFromBackground( backColor );
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
 
         // This takes care of the unused parts of the layout, to avoid gaps of
         // the wrong background color between layout regions for subcomponents.
@@ -397,10 +392,8 @@ public class JxPanel extends JPanel
      * some cases be the one that was passed in, based on the status of several
      * internal flags that keep track of z-buffering.
      *
-     * @param graphicsContext
-     *            A Graphics Context reference.
+     * @param graphicsContext A Graphics Context reference.
      * @return A Graphics Context to use for the off-screen z-buffer.
-     *
      * @since 1.0
      */
     @Override
@@ -432,13 +425,12 @@ public class JxPanel extends JPanel
     }
 
     /**
-     * This method either shows the new background image, or re-displays the
-     * old background image, depending on whether the cached image is null or
-     * not. If null, show the new background image, otherwise show then old.
+     * This method either shows the new background image, or re-displays the old
+     * background image, depending on whether the cached image is null or not.
+     * If null, show the new background image, otherwise show then old.
      *
-     * @param graphicsContext
-     *            A Graphics Context to use for showing the background image
-     *
+     * @param graphicsContext A Graphics Context to use for showing the
+     *                        background image
      * @since 1.0
      */
     @Override
@@ -447,7 +439,8 @@ public class JxPanel extends JPanel
             final Graphics2D g2 = ( Graphics2D ) graphicsContext;
 
             final Composite composite = g2.getComposite();
-            g2.setComposite( AlphaComposite.getInstance( AlphaComposite.SRC_OVER, 1f ) );
+            g2.setComposite( AlphaComposite.getInstance( AlphaComposite.SRC_OVER,
+                                                         1f ) );
             g2.drawImage( offScreenImage, 0, 0, this );
             g2.setComposite( composite );
         }
@@ -464,21 +457,21 @@ public class JxPanel extends JPanel
         final Dimension userAreaSize = getSize();
 
         // Create new off-screen z-buffer if necessary.
-        if ( ( offScreenImage == null ) || ( offScreenImage.getWidth() != userAreaSize.width )
-                || ( offScreenImage.getHeight() != userAreaSize.height ) ) {
-            offScreenImage =
-                           ( BufferedImage ) createImage( userAreaSize.width, userAreaSize.height );
+        if ( ( offScreenImage == null ) || ( offScreenImage.getWidth()
+                                             != userAreaSize.width ) || (
+                     offScreenImage.getHeight() != userAreaSize.height ) ) {
+            offScreenImage = ( BufferedImage ) createImage( userAreaSize.width,
+                                                            userAreaSize.height );
             regenerateOffScreenImage = true;
         }
     }
 
     /**
-     * This method initializes the off-screen canvas associated with a
-     * supplied Graphics Context, for future rendering.
+     * This method initializes the off-screen canvas associated with a supplied
+     * Graphics Context, for future rendering.
      *
-     * @param graphics2D
-     *            The Graphics Context to initialize for off-screen rendering
-     *
+     * @param graphics2D The Graphics Context to initialize for off-screen
+     *                   rendering
      * @since 1.0
      */
     @Override
@@ -496,35 +489,6 @@ public class JxPanel extends JPanel
     ///////////////////// JComponent method overrides ////////////////////////
 
     /**
-     * Sets the enablement of this panel, regarding user input response.
-     * <p>
-     * This method augments the normal panel enablement behavior to account for
-     * an oversight by the Swing development team in not accounting for the
-     * presence of a {@link TitledBorder}. It proved to be very confusing for
-     * users to see the controls disabled inside the bordered layout manager,
-     * but for the border itself and its title to be enabled.
-     *
-     * @param enabled
-     *            Flag for whether this panel should be enabled or not
-     *
-     * @since 1.0
-     */
-    @Override
-    public void setEnabled( final boolean enabled ) {
-        super.setEnabled( enabled );
-
-        // Workaround for Swing oversight in not accounting for the presence of
-        // a {@link TitledBorder} when applying the enabled flag to the current
-        // GUI layout hierarchy. We use mid-gray as the disablement cue.
-        final Color foreColor = enabled ? getForeground() : Color.GRAY;
-        final Border border = getBorder();
-        if ( border instanceof TitledBorder ) {
-            final TitledBorder titledBorder = ( TitledBorder ) border;
-            titledBorder.setTitleColor( foreColor );
-        }
-    }
-
-    /**
      * Paints this panel using the current Graphics Context canvas.
      * <p>
      * This is the preferred repaint method to override and invoke in Swing.
@@ -534,10 +498,8 @@ public class JxPanel extends JPanel
      * <p>
      * If this is done at initialization time, we have a null Graphics Context.
      *
-     * @param graphicsContext
-     *            The Graphics Context to use as the canvas for rendering this
-     *            panel
-     *
+     * @param graphicsContext The Graphics Context to use as the canvas for
+     *                        rendering this panel
      * @since 1.0
      */
     @Override
@@ -553,4 +515,32 @@ public class JxPanel extends JPanel
         }
     }
 
+    /**
+     * Sets the enablement of this panel, regarding user input response.
+     * <p>
+     * This method augments the normal panel enablement behavior to account for
+     * an oversight by the Swing development team in not accounting for the
+     * presence of a {@link TitledBorder}. It proved to be very confusing for
+     * users to see the controls disabled inside the bordered layout manager,
+     * but for the border itself and its title to be enabled.
+     *
+     * @param enabled Flag for whether this panel should be enabled or not
+     * @since 1.0
+     */
+    @Override
+    public void setEnabled( final boolean enabled ) {
+        super.setEnabled( enabled );
+
+        // Workaround for Swing oversight in not accounting for the presence of
+        // a {@link TitledBorder} when applying the enabled flag to the current
+        // GUI layout hierarchy. We use mid-gray as the disablement cue.
+        final Color foreColor = enabled
+                                ? getForeground()
+                                : Color.GRAY;
+        final Border border = getBorder();
+        if ( border instanceof TitledBorder ) {
+            final TitledBorder titledBorder = ( TitledBorder ) border;
+            titledBorder.setTitleColor( foreColor );
+        }
+    }
 }

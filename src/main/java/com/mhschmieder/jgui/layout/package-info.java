@@ -31,9 +31,5 @@
 /**
  * This package contains the jgui Library's utilities that focus on layout
  * manager roles.
- *
- * @version 1.0
- *
- * @author Mark Schmieder
  */
 package com.mhschmieder.jgui.layout;

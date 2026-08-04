@@ -39,9 +39,8 @@ package com.mhschmieder.jgui.layout;
  * class variable for {@code CardLayout} in order to provide all of the expected
  * functionality that is contracted by the listed methods.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public interface CardManager {
 
@@ -52,9 +51,8 @@ public interface CardManager {
      * call this method during panel initialization than to set it in a
      * constructor as a final variable.
      *
-     * @param numberOfCardsToAllow
-     *            The number of Cards to allow; set to zero if negative.
-     *
+     * @param numberOfCardsToAllow The number of Cards to allow; set to zero if
+     *                             negative.
      * @since 1.0
      */
     void setNumberOfCards( final int numberOfCardsToAllow );
@@ -73,9 +71,7 @@ public interface CardManager {
      * Shows the named Card by switching the current active Card based on the
      * supplied Card Name.
      *
-     * @param cardNameToShow
-     *            The name of the Card to show. Must be valid.
-     *
+     * @param cardNameToShow The name of the Card to show. Must be valid.
      * @since 1.0
      */
     void showCard( final String cardNameToShow );
@@ -84,7 +80,6 @@ public interface CardManager {
      * Returns the currently selected Card Name.
      *
      * @return The name of the current selected Card.
-     *
      * @since 1.0
      */
     String getCardName();

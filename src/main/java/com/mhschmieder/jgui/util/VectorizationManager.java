@@ -42,9 +42,8 @@ package com.mhschmieder.jgui.util;
  * overlay of graphics and images behaves in vector output {@code Graphics2D}
  * overrides vs. what is seen in AWT and Swing screen output.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public interface VectorizationManager {
 
@@ -54,7 +53,6 @@ public interface VectorizationManager {
      *
      * @return {@code true} if vectorization is active, {@code false} if
      *         inactive
-     *
      * @since 1.0
      */
     boolean isVectorizationActive();
@@ -62,10 +60,8 @@ public interface VectorizationManager {
     /**
      * Sets (if active) or clears (if inactive) the vectorization active state.
      *
-     * @param active
-     *            {@code true} to indicate vectorization is active,
-     *            {@code false} if inactive
-     *
+     * @param active {@code true} to indicate vectorization is active,
+     *               {@code false} if inactive
      * @since 1.0
      */
     void setVectorizationActive( final boolean active );

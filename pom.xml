@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>jxlab</artifactId>
         <groupId>com.mhschmieder</groupId>
@@ -14,7 +16,9 @@
 
     <name>jgui</name>
     <url>https://github.com/mhschmieder/jgui</url>
-    <description>Utilities and custom classes for Java AWT and Swing based GUI work.</description>
+    <description>Utilities and custom classes for Java AWT and Swing based GUI
+        work.
+    </description>
 
     <licenses>
         <license>
@@ -27,7 +31,8 @@
     <scm>
         <url>https://github.com/mhschmieder/jgui</url>
         <connection>scm:git:git://github.com/mhschmieder/jgui.git</connection>
-        <developerConnection>scm:git:git@github.com:mhschmieder/jgui.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:mhschmieder/jgui.git
+        </developerConnection>
     </scm>
 
     <developers>

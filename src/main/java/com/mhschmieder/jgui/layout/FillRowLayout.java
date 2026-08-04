@@ -51,7 +51,8 @@ public class FillRowLayout implements LayoutManager {
     /**
      * Creates a new FillRowLayout
      */
-    public FillRowLayout( final int VertSpacing, final int HorzSpacing ) {
+    public FillRowLayout( final int VertSpacing,
+                          final int HorzSpacing ) {
         m_VertSpacing = VertSpacing;
         m_HorzSpacing = HorzSpacing;
     }
@@ -61,7 +62,8 @@ public class FillRowLayout implements LayoutManager {
      * to do anything here
      */
     @Override
-    public void addLayoutComponent( final String p1, final Component p2 ) {
+    public void addLayoutComponent( final String p1,
+                                    final Component p2 ) {
     }
 
     /*
@@ -90,7 +92,7 @@ public class FillRowLayout implements LayoutManager {
         for ( int i = 0; i < NumberOfComponents; i++ ) {
             // Get the preferred size of this component
             final Dimension cPreferredSize = p1.getComponent( i )
-                    .getPreferredSize();
+                                               .getPreferredSize();
 
             // Look for the single largest height
             if ( cPreferredSize.height > LargestHeight ) {
@@ -158,7 +160,7 @@ public class FillRowLayout implements LayoutManager {
         int preferredWidth = 0;
         for ( int i = 0; i < NumberOfComponents; i++ ) {
             final Dimension cPreferredSize = p1.getComponent( i )
-                    .getMaximumSize();
+                                               .getMaximumSize();
 
             if ( cPreferredSize.width > Size.width ) {
                 // count our resizeable components
@@ -174,12 +176,9 @@ public class FillRowLayout implements LayoutManager {
 
         // Divide the remaining size up by our resizable components
         if ( NumberOfStretchableComp != 0 ) {
-            WidthOfStretchableComponents = (
-                    Size.width - preferredWidth
-                            - (
-                            m_HorzSpacing * (
-                                    NumberOfComponents
-                                            + 1 ) ) )
+            WidthOfStretchableComponents =
+                    ( Size.width - preferredWidth - ( m_HorzSpacing * (
+                            NumberOfComponents + 1 ) ) )
                     / NumberOfStretchableComp;
         }
 
@@ -196,12 +195,12 @@ public class FillRowLayout implements LayoutManager {
 
             if ( cPreferredSize.width > Size.width ) {
                 c.setSize( WidthOfStretchableComponents,
-                        Size.height - ( 2 * m_VertSpacing ) );
+                           Size.height - ( 2 * m_VertSpacing ) );
                 LeftSide += WidthOfStretchableComponents + m_HorzSpacing;
             }
             else {
                 c.setSize( cPreferredSize.width,
-                        Size.height - ( 2 * m_VertSpacing ) );
+                           Size.height - ( 2 * m_VertSpacing ) );
                 LeftSide += cPreferredSize.width + m_HorzSpacing;
             }
         }

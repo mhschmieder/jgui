@@ -39,13 +39,13 @@ import java.awt.EventQueue;
  * that sets up the functionality that is likely to be shared by all multi-row
  * tables that support dynamically adding and deleting rows after creation.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public abstract class JxDynamicTablePanel extends JxTablePanel {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 5990582758011481642L;
 
@@ -58,19 +58,17 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * This is an abstract base class, so its purpose is to avoid copy/paste
      * code in the derived classes; it is unable to function on its own.
      *
-     * @param firstColumn
-     *            The index for the first column in the Table
-     * @param lastColumn
-     *            The index for the last column in the Table
-     * @param autoSelectionIsEnabled
-     *            {@code true} if auto-selection is enabled when nothing is
-     *            manually or programmatically selected
-     *
+     * @param firstColumn            The index for the first column in the
+     *                               Table
+     * @param lastColumn             The index for the last column in the Table
+     * @param autoSelectionIsEnabled {@code true} if auto-selection is enabled
+     *                               when nothing is manually or
+     *                               programmatically selected
      * @since 1.0
      */
-    protected JxDynamicTablePanel(final int firstColumn,
-                                  final int lastColumn,
-                                  final boolean autoSelectionIsEnabled ) {
+    protected JxDynamicTablePanel( final int firstColumn,
+                                   final int lastColumn,
+                                   final boolean autoSelectionIsEnabled ) {
         // Always call the superclass constructor first!
         super( firstColumn, lastColumn, autoSelectionIsEnabled );
     }
@@ -80,36 +78,33 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
     /**
      * Returns {@code true} if a row can be inserted at the specified index.
      *
-     * @param insertIndex
-     *            The selected index for inserting a new row
-     * @param minimumInsertIndex
-     *            The minimum allowed index for inserting a new row
-     * @param maximumInsertIndex
-     *            The maximum allowed index for inserting a new row
-     * @param maximumLastRowIndex
-     *            The maximum index that is ever allowed for this table
+     * @param insertIndex         The selected index for inserting a new row
+     * @param minimumInsertIndex  The minimum allowed index for inserting a new
+     *                            row
+     * @param maximumInsertIndex  The maximum allowed index for inserting a new
+     *                            row
+     * @param maximumLastRowIndex The maximum index that is ever allowed for
+     *                            this table
      * @return {@code true} if a row can be inserted at the specified index
-     *
      * @since 1.0
      */
-    @SuppressWarnings("static-method")
+    @SuppressWarnings( "static-method" )
     protected boolean canInsertTableRowAt( final int insertIndex,
                                            final int minimumInsertIndex,
                                            final int maximumInsertIndex,
                                            final int maximumLastRowIndex ) {
         // If the index is out of bounds, or the table size has already reached
         // the maximum number of rows allowed, ignore the insertion request.
-        return ( ( insertIndex >= minimumInsertIndex ) && ( insertIndex <= maximumInsertIndex )
-                && ( maximumInsertIndex >= minimumInsertIndex )
-                && ( maximumInsertIndex <= maximumLastRowIndex ) );
-
+        return ( ( insertIndex >= minimumInsertIndex ) && ( insertIndex
+                                                            <= maximumInsertIndex )
+                 && ( maximumInsertIndex >= minimumInsertIndex ) && (
+                         maximumInsertIndex <= maximumLastRowIndex ) );
     }
 
     /**
      * Returns {@code true} if row deletion is legal, regardless of context.
      *
      * @return {@code true} if row deletion is legal, regardless of context
-     *
      * @since 1.0
      */
     public boolean canDeleteTableRows() {
@@ -121,7 +116,8 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
         // Maybe provide or override the preferred auto-select row index?
         boolean canDeleteRows = true;
         final Integer[] selectedRowIndices = getSelectedRows();
-        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length > 0 ) ) {
+        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length
+                                                 > 0 ) ) {
             for ( final Integer selectedRowIndex : selectedRowIndices ) {
                 if ( !canDeleteTableRowAt( selectedRowIndex.intValue() ) ) {
                     canDeleteRows = false;
@@ -149,10 +145,8 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
     /**
      * Returns {@code true} if a row can be deleted at the specified index
      *
-     * @param deleteIndex
-     *            The selected index for deleting an existing row
+     * @param deleteIndex The selected index for deleting an existing row
      * @return {@code true} if a row can be deleted at the specified index
-     *
      * @since 1.0
      */
     public boolean canDeleteTableRowAt( final int deleteIndex ) {
@@ -168,29 +162,28 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
     /**
      * Returns {@code true} if a row can be deleted at the specified index
      *
-     * @param deleteIndex
-     *            The selected index for deleting an existing row
-     * @param minimumDeleteIndex
-     *            The minimum allowed index for deleting an existing row
-     * @param maximumDeleteIndex
-     *            The maximum allowed index for deleting an existing row
-     * @param minimumLastRowIndex
-     *            The minimum index that is ever allowed for this table
+     * @param deleteIndex         The selected index for deleting an existing
+     *                            row
+     * @param minimumDeleteIndex  The minimum allowed index for deleting an
+     *                            existing row
+     * @param maximumDeleteIndex  The maximum allowed index for deleting an
+     *                            existing row
+     * @param minimumLastRowIndex The minimum index that is ever allowed for
+     *                            this table
      * @return {@code true} if a row can be deleted at the specified index
-     *
      * @since 1.0
      */
-    @SuppressWarnings("static-method")
+    @SuppressWarnings( "static-method" )
     protected boolean canDeleteTableRowAt( final int deleteIndex,
                                            final int minimumDeleteIndex,
                                            final int maximumDeleteIndex,
                                            final int minimumLastRowIndex ) {
         // If the index is out of bounds, or the table size has already reached
         // the minimum number of rows required, ignore the deletion request.
-        return ( ( deleteIndex >= minimumDeleteIndex ) && ( deleteIndex <= maximumDeleteIndex )
-                && ( maximumDeleteIndex >= minimumDeleteIndex )
-                && ( maximumDeleteIndex > minimumLastRowIndex ) );
-
+        return ( ( deleteIndex >= minimumDeleteIndex ) && ( deleteIndex
+                                                            <= maximumDeleteIndex )
+                 && ( maximumDeleteIndex >= minimumDeleteIndex ) && (
+                         maximumDeleteIndex > minimumLastRowIndex ) );
     }
 
     /**
@@ -201,7 +194,6 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * were selected), and inserts an initially similar row right after it.
      *
      * @return The row index for the newly inserted row (if valid)
-     *
      * @since 1.0
      */
     public int insertTableRow() {
@@ -219,17 +211,17 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * This method finds the lower-most row selected (or the last row if none
      * were selected), and inserts an initially similar row right after it.
      *
-     * @param minimumInsertIndex
-     *            The minimum allowed index for inserting a new row
+     * @param minimumInsertIndex The minimum allowed index for inserting a new
+     *                           row
      * @return The row index for the newly inserted row (if valid)
-     *
      * @since 1.0
      */
     public int insertTableRow( final int minimumInsertIndex ) {
         final int maximumRowCountIndex = Integer.MAX_VALUE;
 
         // Insert a new table row set to the currently selected row.
-        final int referenceIndex = insertTableRow( minimumInsertIndex, maximumRowCountIndex );
+        final int referenceIndex = insertTableRow( minimumInsertIndex,
+                                                   maximumRowCountIndex );
 
         return referenceIndex;
     }
@@ -241,12 +233,11 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * This method finds the lower-most row selected (or the last row if none
      * were selected), and inserts an initially similar row right after it.
      *
-     * @param minimumInsertIndex
-     *            The minimum allowed index for inserting a new row
-     * @param maximumLastRowIndex
-     *            The maximum index that is ever allowed for this table
+     * @param minimumInsertIndex  The minimum allowed index for inserting a new
+     *                            row
+     * @param maximumLastRowIndex The maximum index that is ever allowed for
+     *                            this table
      * @return The row index for the newly inserted row (if valid)
-     *
      * @since 1.0
      */
     protected final int insertTableRow( final int minimumInsertIndex,
@@ -268,9 +259,10 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
             // and scroll to half that row count beyond the initial reference
             // row index requested for the row insert.
             final int scrollToRow = FastMath.min( referenceIndex + 10,
-                    table.getRowCount() - 1 );
-            table.scrollRectToVisible( table
-                    .getCellRect( scrollToRow, table.getColumnCount(), false ) );
+                                                  table.getRowCount() - 1 );
+            table.scrollRectToVisible( table.getCellRect( scrollToRow,
+                                                          table.getColumnCount(),
+                                                          false ) );
         } );
 
         return referenceIndex;
@@ -284,16 +276,14 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * data model for each derived class will be needed for making a data object
      * associated with the row's contents.
      *
-     * @param insertIndex
-     *            The selected index for inserting a new row
-     * @param minimumInsertIndex
-     *            The minimum allowed index for inserting a new row
-     * @param maximumInsertIndex
-     *            The maximum allowed index for inserting a new row
-     * @param maximumLastRowIndex
-     *            The maximum index that is ever allowed for this table
+     * @param insertIndex         The selected index for inserting a new row
+     * @param minimumInsertIndex  The minimum allowed index for inserting a new
+     *                            row
+     * @param maximumInsertIndex  The maximum allowed index for inserting a new
+     *                            row
+     * @param maximumLastRowIndex The maximum index that is ever allowed for
+     *                            this table
      * @return The row index for the newly inserted row (if valid)
-     *
      * @since 1.0
      */
     protected abstract int insertTableRowAt( final int insertIndex,
@@ -309,7 +299,6 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * were selected), and inserts an initially similar row right after it.
      *
      * @return The row index for the final deleted row (if valid)
-     *
      * @since 1.0
      */
     public int deleteTableRows() {
@@ -322,7 +311,8 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
         final int minimumLastRowIndex = -1;
 
         // Delete the selected table row(s).
-        final int referenceIndex = deleteTableRows( minimumDeleteIndex, minimumLastRowIndex );
+        final int referenceIndex = deleteTableRows( minimumDeleteIndex,
+                                                    minimumLastRowIndex );
 
         return referenceIndex;
     }
@@ -334,12 +324,11 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * This method finds the lower-most row selected (or the last row if none
      * were selected), and inserts an initially similar row right after it.
      *
-     * @param minimumDeleteIndex
-     *            The minimum allowed index for deleting an existing row
-     * @param minimumLastRowIndex
-     *            The minimum index that is ever allowed for this table
+     * @param minimumDeleteIndex  The minimum allowed index for deleting an
+     *                            existing row
+     * @param minimumLastRowIndex The minimum index that is ever allowed for
+     *                            this table
      * @return The row index for the final deleted row (if valid)
-     *
      * @since 1.0
      */
     protected final int deleteTableRows( final int minimumDeleteIndex,
@@ -347,7 +336,8 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
         // Delete all of the selected table row(s), except the minimum row.
         int referenceIndex = -1;
         final Integer[] selectedRowIndices = getSelectedRows();
-        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length > 0 ) ) {
+        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length
+                                                 > 0 ) ) {
             int correctedIndex = -1;
             for ( final Integer deleteIndex : selectedRowIndices ) {
                 // As the table changes size inside this loop, we have to
@@ -396,21 +386,19 @@ public abstract class JxDynamicTablePanel extends JxTablePanel {
      * data model for each derived class will be needed for making a data object
      * associated with the row's contents.
      *
-     * @param deleteIndex
-     *            The selected index for deleting an existing row
-     * @param minimumDeleteIndex
-     *            The minimum allowed index for deleting an existing row
-     * @param maximumDeleteIndex
-     *            The maximum allowed index for deleting an existing row
-     * @param minimumLastRowIndex
-     *            The minimum index that is ever allowed for this table
+     * @param deleteIndex         The selected index for deleting an existing
+     *                            row
+     * @param minimumDeleteIndex  The minimum allowed index for deleting an
+     *                            existing row
+     * @param maximumDeleteIndex  The maximum allowed index for deleting an
+     *                            existing row
+     * @param minimumLastRowIndex The minimum index that is ever allowed for
+     *                            this table
      * @return The row index for the deleted row (if the row was deleted)
-     *
      * @since 1.0
      */
     protected abstract int deleteTableRowAt( final int deleteIndex,
                                              final int minimumDeleteIndex,
                                              final int maximumDeleteIndex,
                                              final int minimumLastRowIndex );
-
 }

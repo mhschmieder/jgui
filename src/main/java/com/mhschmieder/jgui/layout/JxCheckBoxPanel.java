@@ -32,30 +32,33 @@ package com.mhschmieder.jgui.layout;
 
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
+import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
-import java.awt.Color;
 
 // NOTE: This class is used to format a single check box in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.
 public class JxCheckBoxPanel extends JxPanel {
     /**
-     * 
+     *
      */
-    private static final long   serialVersionUID    = 7722560034822777171L;
+    private static final long serialVersionUID = 7722560034822777171L;
 
-    // //////////////////////////////////////////////////////////////////////////
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Panel View Variables
-    public JCheckBox            _checkBox           = null;
+    public JCheckBox _checkBox = null;
 
-    // //////////////////////////////////////////////////////////////////////////
+    //
+    // ////////////////////////////////////////////////////////////////////////
     // Constructors and Initialization
-    public JxCheckBoxPanel(final String text,
-                           final int mnemonic,
-                           final boolean selected ) {
+    public JxCheckBoxPanel( final String text,
+                            final int mnemonic,
+                            final boolean selected ) {
         // Always call the superclass constructor first!
         super();
 
@@ -90,14 +93,6 @@ public class JxCheckBoxPanel extends JxPanel {
         add( Box.createHorizontalGlue() );
     }
 
-    @Override
-    public void setEnabled( final boolean enabled ) {
-        super.setEnabled( enabled );
-
-        // Forward this function to the subcomponents.
-        _checkBox.setEnabled( enabled );
-    }
-
     // This method sets the background color, and where appropriate, the
     // foreground color is set to complement it for text-based components.
     @Override
@@ -105,11 +100,19 @@ public class JxCheckBoxPanel extends JxPanel {
         super.setForegroundFromBackground( backColor );
 
         // Forward this function to the subcomponents.
-        final Color foreColor = ColorUtilities
-                .getForegroundFromBackground( backColor );
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
 
         _checkBox.setBackground( backColor );
         _checkBox.setForeground( foreColor );
+    }
+
+    @Override
+    public void setEnabled( final boolean enabled ) {
+        super.setEnabled( enabled );
+
+        // Forward this function to the subcomponents.
+        _checkBox.setEnabled( enabled );
     }
 
     public final void setLabel( final String label ) {

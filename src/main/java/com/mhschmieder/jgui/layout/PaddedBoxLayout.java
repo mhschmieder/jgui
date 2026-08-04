@@ -36,7 +36,8 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 
 /**
- * This is the same as the box layout except we allow padding between the boxes.
+ * This is the same as the box layout except we allow padding between the
+ * boxes.
  */
 public class PaddedBoxLayout implements LayoutManager {
 
@@ -49,9 +50,29 @@ public class PaddedBoxLayout implements LayoutManager {
     /*---------------------------------
      * Creates new PaddedBoxLayout
      *-------------------*/
-    public PaddedBoxLayout(int vertSpacing, int horzSpacing) {
+    public PaddedBoxLayout( int vertSpacing,
+                            int horzSpacing ) {
         m_VertSpacing = vertSpacing;
         m_HorzSpacing = horzSpacing;
+    }
+
+    /*--------------------
+     *addLayoutComponent
+     *
+     * We don't hold anything specific about each component
+     * so we don't need to do anything here
+     *-------------------*/
+    public void addLayoutComponent( String p1,
+                                    Component p2 ) {
+    }
+
+    /*--------------------
+     *removeLayoutComponent
+     *
+     * We don't hold anything specific about each component
+     * so we don't need to do anything here
+     *-------------------*/
+    public void removeLayoutComponent( Component p1 ) {
     }
 
     /*---------------------------------
@@ -63,16 +84,16 @@ public class PaddedBoxLayout implements LayoutManager {
      * The preferred height of the container
      * is all the preferred heights of all the components.
      *-------------------*/
-    public Dimension preferredLayoutSize(Container p1) {
+    public Dimension preferredLayoutSize( Container p1 ) {
         int componentCount = p1.getComponentCount();
 
         int height = 0;
         int largestWidth = 0;
-        for(int i = 0; i < componentCount; i++) {
-            Component component = p1.getComponent(i);
+        for ( int i = 0; i < componentCount; i++ ) {
+            Component component = p1.getComponent( i );
 
             //don't bother counting components that are invisible
-            if(!component.isVisible()) {
+            if ( !component.isVisible() ) {
                 continue;
             }
 
@@ -80,28 +101,17 @@ public class PaddedBoxLayout implements LayoutManager {
             Dimension preferredSize = component.getPreferredSize();
 
             // Loook for the single largest height
-            if(preferredSize.width > largestWidth) {
+            if ( preferredSize.width > largestWidth ) {
                 largestWidth = preferredSize.width;
             }
 
             //Add all the widths
             height += preferredSize.height;
-
         }
 
         // The final dimensions need to include our spacing settings
-        return new Dimension(
-                largestWidth + 2 *m_HorzSpacing,
-                height + m_VertSpacing* (componentCount +1) );
-    }
-
-    /*--------------------
-     *removeLayoutComponent
-     *
-     * We don't hold anything specific about each component
-     * so we don't need to do anything here
-     *-------------------*/
-    public void removeLayoutComponent(Component p1) {
+        return new Dimension( largestWidth + 2 * m_HorzSpacing,
+                              height + m_VertSpacing * ( componentCount + 1 ) );
     }
 
     /*---------------------------------
@@ -110,24 +120,24 @@ public class PaddedBoxLayout implements LayoutManager {
      * The minimum Height is simply the addition of all the minimum widths.
      * The Width is the largest minimum height.
      *-------------------*/
-    public Dimension minimumLayoutSize(Container p1) {
+    public Dimension minimumLayoutSize( Container p1 ) {
         //Get the number of components in our container
         int componentCount = p1.getComponentCount();
 
         int height = 0;
         int largestWidth = 0;
-        for(int i = 0; i < componentCount; i++) {
-            Component component = p1.getComponent(i);
+        for ( int i = 0; i < componentCount; i++ ) {
+            Component component = p1.getComponent( i );
 
             //don't bother counting components that are invisible
-            if(!component.isVisible()) {
+            if ( !component.isVisible() ) {
                 continue;
             }
 
             Dimension minimumSize = component.getMinimumSize();
 
             //Find the largest minimum width
-            if(minimumSize.width > largestWidth) {
+            if ( minimumSize.width > largestWidth ) {
                 largestWidth = minimumSize.width;
             }
 
@@ -136,18 +146,8 @@ public class PaddedBoxLayout implements LayoutManager {
         }
 
         // The final dimensions need to include our spacing settings
-        return new Dimension(
-                largestWidth + 2* m_HorzSpacing,
-                height + m_VertSpacing * (componentCount +1));
-    }
-
-    /*--------------------
-     *addLayoutComponent
-     *
-     * We don't hold anything specific about each component
-     * so we don't need to do anything here
-     *-------------------*/
-    public void addLayoutComponent(String p1,Component p2) {
+        return new Dimension( largestWidth + 2 * m_HorzSpacing,
+                              height + m_VertSpacing * ( componentCount + 1 ) );
     }
 
     /*---------------------------------
@@ -155,7 +155,7 @@ public class PaddedBoxLayout implements LayoutManager {
      *
      * Actually layout the components in the container.
      *-------------------*/
-    public void layoutContainer(Container p1) {
+    public void layoutContainer( Container p1 ) {
         //Get the current size of our window
         Dimension size = p1.getSize();
 
@@ -165,20 +165,20 @@ public class PaddedBoxLayout implements LayoutManager {
         int topOfComponent = m_VertSpacing;
 
         // roll through a resize the components
-        for(int i = 0; i < componentCount; i++) {
-            Component c = p1.getComponent(i);
+        for ( int i = 0; i < componentCount; i++ ) {
+            Component c = p1.getComponent( i );
 
             //don't bother counting components that are invisible
-            if(!c.isVisible()) {
+            if ( !c.isVisible() ) {
                 continue;
             }
 
             Dimension preferredSize = c.getPreferredSize();
 
             //position the component
-            c.setLocation(m_HorzSpacing,topOfComponent);
+            c.setLocation( m_HorzSpacing, topOfComponent );
 
-            c.setSize(size.width - 2*m_HorzSpacing ,preferredSize.height);
+            c.setSize( size.width - 2 * m_HorzSpacing, preferredSize.height );
 
             topOfComponent += preferredSize.height + m_VertSpacing;
         }

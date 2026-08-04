@@ -39,13 +39,6 @@ import com.mhschmieder.jgraphics.color.ColorUtilities;
 import com.mhschmieder.jgui.border.BorderUtilities;
 import org.apache.commons.math3.util.FastMath;
 
-import javax.swing.BorderFactory;
-import javax.swing.CellEditor;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -53,18 +46,26 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
+import javax.swing.BorderFactory;
+import javax.swing.CellEditor;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+
 /**
- * {@code TableXPanel} is an abstract base class that serves as a
- * specialization of {@link JxPanel} that wraps an {@link JxTable} in appropriate
- * layout and with expected behavior for primary application content components.
- *
- * @version 1.0
+ * {@code TableXPanel} is an abstract base class that serves as a specialization
+ * of {@link JxPanel} that wraps an {@link JxTable} in appropriate layout and
+ * with expected behavior for primary application content components.
  *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public abstract class JxTablePanel extends JxPanel {
     /**
-     * Unique Serial Version ID for this class, to avoid class loader conflicts.
+     * Unique Serial Version ID for this class, to avoid class loader
+     * conflicts.
      */
     private static final long serialVersionUID = 8715148654648213855L;
 
@@ -77,49 +78,41 @@ public abstract class JxTablePanel extends JxPanel {
      * for most other contexts as well, so is declared as a static constant vs.
      * a variable.
      */
-    protected final float     tableCellFontSize;
-
+    protected final float tableCellFontSize;
+    /**
+     * The index for the first column in the Table.
+     */
+    private final int firstColumnIndex;
+    /**
+     * The index for the last column in the Table.
+     */
+    private final int lastColumnIndex;
+    /**
+     * Flag for whether auto-selection is enabled, when nothing is selected.
+     */
+    private final boolean autoSelectionEnabled;
+    /**
+     * The Table that hosts the data.
+     */
+    protected JxTable table;
     /**
      * The main panel that combines the layout elements; possibly redundant?
      */
-    private JPanel            mainPanel;
-
+    private JPanel mainPanel;
     /**
      * The Panel that hosts the Scroll Pane that in turn hosts the Table.
      */
-    private JPanel            scrollableTablePanel;
-
+    private JPanel scrollableTablePanel;
     /**
      * The Scroll Pane that hosts the Table and allows a viewport that is
      * smaller than the table size, adding scrollbars if clipping would
      * otherwise result.
      */
-    private JScrollPane       scrollPane;
-
-    /**
-     * The Table that hosts the data.
-     */
-    protected JxTable table;
-
+    private JScrollPane scrollPane;
     /**
      * Flag for whether a Table Header is in use; {@code true} if so.
      */
-    private boolean           tableHeaderInUse;
-
-    /**
-     * The index for the first column in the Table.
-     */
-    private final int         firstColumnIndex;
-
-    /**
-     * The index for the last column in the Table.
-     */
-    private final int         lastColumnIndex;
-
-    /**
-     * Flag for whether auto-selection is enabled, when nothing is selected.
-     */
-    private final boolean     autoSelectionEnabled;
+    private boolean tableHeaderInUse;
 
     //////////////////////////// Constructors ////////////////////////////////
 
@@ -129,19 +122,17 @@ public abstract class JxTablePanel extends JxPanel {
      * This is an abstract base class, so its purpose is to avoid copy/paste
      * code in the derived classes; it is unable to function on its own.
      *
-     * @param firstColumn
-     *            The index for the first column in the Table
-     * @param lastColumn
-     *            The index for the last column in the Table
-     * @param autoSelectionIsEnabled
-     *            {@code true} if auto-selection is enabled when nothing is
-     *            manually or programmatically selected
-     *
+     * @param firstColumn            The index for the first column in the
+     *                               Table
+     * @param lastColumn             The index for the last column in the Table
+     * @param autoSelectionIsEnabled {@code true} if auto-selection is enabled
+     *                               when nothing is manually or
+     *                               programmatically selected
      * @since 1.0
      */
-    protected JxTablePanel(final int firstColumn,
-                           final int lastColumn,
-                           final boolean autoSelectionIsEnabled ) {
+    protected JxTablePanel( final int firstColumn,
+                            final int lastColumn,
+                            final boolean autoSelectionIsEnabled ) {
         // Always call the superclass constructor first!
         super();
 
@@ -173,36 +164,36 @@ public abstract class JxTablePanel extends JxPanel {
      * get the resulting table width, and using the row count for table height
      * derivation vs. redundantly pre-fetching these as call parameters.
      *
-     * @param borderTitle
-     *            The title to use for the styled border; can be {@code null} if
-     *            no styled border is wanted
-     * @param tableHeaderIsInUse
-     *            {@code true} if a Table Header is in use
-     * @param tableModel
-     *            The Table Model to use for mapping the data type of each
-     *            column in this table
-     * @param columnWidths
-     *            A list of the widths for each table column
-     * @param columnAutoEdit
-     *            Auto-edit settings for each individual column
-     * @param columnAutoSelect
-     *            Auto-select settings for each individual column
-     * @param selectionMode
-     *            Not an enum, so must be a valid int matching single selection,
-     *            single interval selection, or multiple interval selection, as
-     *            defined in {@code ListSelectionModel}
-     * @param columnBasedSelectionAllowed
-     *            {@code true} if entire columns can be selected as a cell group
-     * @param rowBasedSelectionAllowed
-     *            {@code true} if entire rows can be selected as a cell group
-     * @param autoCreateRowSorter
-     *            {@code true} if an automatic row sorter should be set up that
-     *            is strictly UTF-8 alphabetical
-     * @param tableWidthPixels
-     *            The width of the table's viewport, in pixels
-     * @param tableHeightPixels
-     *            The height of the table's viewport, in pixels
-     *
+     * @param borderTitle                 The title to use for the styled
+     *                                    border; can be {@code null} if no
+     *                                    styled border is wanted
+     * @param tableHeaderIsInUse          {@code true} if a Table Header is in
+     *                                    use
+     * @param tableModel                  The Table Model to use for mapping the
+     *                                    data type of each column in this
+     *                                    table
+     * @param columnWidths                A list of the widths for each table
+     *                                    column
+     * @param columnAutoEdit              Auto-edit settings for each individual
+     *                                    column
+     * @param columnAutoSelect            Auto-select settings for each
+     *                                    individual column
+     * @param selectionMode               Not an enum, so must be a valid int
+     *                                    matching single selection, single
+     *                                    interval selection, or multiple
+     *                                    interval selection, as defined in
+     *                                    {@code ListSelectionModel}
+     * @param columnBasedSelectionAllowed {@code true} if entire columns can be
+     *                                    selected as a cell group
+     * @param rowBasedSelectionAllowed    {@code true} if entire rows can be
+     *                                    selected as a cell group
+     * @param autoCreateRowSorter         {@code true} if an automatic row
+     *                                    sorter should be set up that is
+     *                                    strictly UTF-8 alphabetical
+     * @param tableWidthPixels            The width of the table's viewport, in
+     *                                    pixels
+     * @param tableHeightPixels           The height of the table's viewport, in
+     *                                    pixels
      * @since 1.0
      */
     protected final void initPanel( final String borderTitle,
@@ -247,27 +238,27 @@ public abstract class JxTablePanel extends JxPanel {
     }
 
     /**
-     * @param tableModel
-     *            The Table Model to use for mapping the data type of each
-     *            column in this table
-     * @param columnWidths
-     *            A list of the widths for each table column
-     * @param columnAutoEdit
-     *            Auto-edit settings for each individual column
-     * @param columnAutoSelect
-     *            Auto-select settings for each individual column
-     * @param selectionMode
-     *            Not an enum, so must be a valid int matching single selection,
-     *            single interval selection, or multiple interval selection, as
-     *            defined in {@code ListSelectionModel}
-     * @param columnBasedSelectionAllowed
-     *            {@code true} if entire columns can be selected as a cell group
-     * @param rowBasedSelectionAllowed
-     *            {@code true} if entire rows can be selected as a cell group
-     * @param autoCreateRowSorter
-     *            {@code true} if an automatic row sorter should be set up that
-     *            is strictly UTF-8 alphabetical
-     *
+     * @param tableModel                  The Table Model to use for mapping the
+     *                                    data type of each column in this
+     *                                    table
+     * @param columnWidths                A list of the widths for each table
+     *                                    column
+     * @param columnAutoEdit              Auto-edit settings for each individual
+     *                                    column
+     * @param columnAutoSelect            Auto-select settings for each
+     *                                    individual column
+     * @param selectionMode               Not an enum, so must be a valid int
+     *                                    matching single selection, single
+     *                                    interval selection, or multiple
+     *                                    interval selection, as defined in
+     *                                    {@code ListSelectionModel}
+     * @param columnBasedSelectionAllowed {@code true} if entire columns can be
+     *                                    selected as a cell group
+     * @param rowBasedSelectionAllowed    {@code true} if entire rows can be
+     *                                    selected as a cell group
+     * @param autoCreateRowSorter         {@code true} if an automatic row
+     *                                    sorter should be set up that is
+     *                                    strictly UTF-8 alphabetical
      * @since 1.0
      */
     protected void loadComponents( final TableModel tableModel,
@@ -287,12 +278,12 @@ public abstract class JxTablePanel extends JxPanel {
         // directly, we lose the header and must re-add it later in the final
         // layout for the panel that wraps the scroll pane.
         table = new JxTable( tableModel,
-                            columnAutoEdit,
-                            columnAutoSelect,
-                            selectionMode,
-                            columnBasedSelectionAllowed,
-                            rowBasedSelectionAllowed,
-                            autoCreateRowSorter );
+                             columnAutoEdit,
+                             columnAutoSelect,
+                             selectionMode,
+                             columnBasedSelectionAllowed,
+                             rowBasedSelectionAllowed,
+                             autoCreateRowSorter );
 
         // Initialize table metrics, such as row height, column width.
         TableInitializationUtilities.initTableMetrics( table, columnWidths );
@@ -312,11 +303,8 @@ public abstract class JxTablePanel extends JxPanel {
      * Creates and lays out the scroll panes that are needed for avoiding
      * clipping when the viewport is smaller than the table itself.
      *
-     * @param tableWidthPixels
-     *            The width of the table's viewport, in pixels
-     * @param tableHeightPixels
-     *            The height of the table's viewport, in pixels
-     *
+     * @param tableWidthPixels  The width of the table's viewport, in pixels
+     * @param tableHeightPixels The height of the table's viewport, in pixels
      * @since 1.0
      */
     private final void loadScrollPanes( final int tableWidthPixels,
@@ -331,16 +319,14 @@ public abstract class JxTablePanel extends JxPanel {
      * Creates and lays out the main panel that serves as the container for the
      * entire hierarchy of components in {@code TableXPanel}.
      *
-     * @param borderTitle
-     *            The title to use for the styled border; can be {@code null} if
-     *            no styled border is wanted
-     * @param tableHeaderIsInUse
-     *            {@code true} if a Table Header is in use
-     *
+     * @param borderTitle        The title to use for the styled border; can be
+     *                           {@code null} if no styled border is wanted
+     * @param tableHeaderIsInUse {@code true} if a Table Header is in use
      * @since 1.0
      */
-    @SuppressWarnings("nls")
-    protected void loadMainPanel( final String borderTitle, final boolean tableHeaderIsInUse ) {
+    @SuppressWarnings( "nls" )
+    protected void loadMainPanel( final String borderTitle,
+                                  final boolean tableHeaderIsInUse ) {
         // Cache the Table Header in use status, for later export decisions.
         tableHeaderInUse = tableHeaderIsInUse;
 
@@ -348,10 +334,10 @@ public abstract class JxTablePanel extends JxPanel {
         //
         // NOTE: No table control panel in this context as this version is for 
         //  fixed size vs. dynamic tables.
-        mainPanel = TableUtilities.makeTablePanel( null, 
-                                                   null, 
-                                                   tableHeaderIsInUse, 
-                                                   scrollPane, 
+        mainPanel = TableUtilities.makeTablePanel( null,
+                                                   null,
+                                                   tableHeaderIsInUse,
+                                                   scrollPane,
                                                    table );
 
         // Layout the main content.
@@ -380,8 +366,8 @@ public abstract class JxTablePanel extends JxPanel {
         if ( tableHeaderInUse ) {
             final JTableHeader tableHeader = table.getTableHeader();
             if ( tableHeader != null ) {
-                tableHeader
-                        .setDefaultRenderer( new TableHeaderRenderer( true, tableCellFontSize ) );
+                tableHeader.setDefaultRenderer( new TableHeaderRenderer( true,
+                                                                         tableCellFontSize ) );
             }
         }
     }
@@ -407,7 +393,6 @@ public abstract class JxTablePanel extends JxPanel {
      *
      * @return {@code true} if auto-selection is enabled when nothing is
      *         manually or programmatically selected
-     *
      * @since 1.0
      */
     public final boolean isAutoSelectionEnabled() {
@@ -415,52 +400,6 @@ public abstract class JxTablePanel extends JxPanel {
     }
 
     ////////////////////// Model/View syncing methods ////////////////////////
-
-    /**
-     * Updates the model to match the table view at the specified row.
-     * <p>
-     * Check for columns to exclude, such as action buttons, to avoid side
-     * effects of bringing another window forward.
-     *
-     * @param row
-     *            The row index for the table row to be synced to the model
-     * @return {@code true} if the model changed after syncing it from the view
-     *
-     * @since 1.0
-     */
-    public final boolean updateModelAt( final int row ) {
-        boolean modelChanged = false;
-        final TableModel tableModel = table.getModel();
-        final int numberOfColumns = tableModel.getColumnCount();
-
-        // Iterate through the individual columns in the current row.
-        for ( int column = 0; column < numberOfColumns; column++ ) {
-            modelChanged |= updateModelAt( row, column );
-        }
-
-        return modelChanged;
-    }
-
-    /**
-     * Updates the model to match the table view at the specified cell.
-     *
-     * @param row
-     *            The row index for the table cell to be synced to the model
-     * @param column
-     *            The column index for the table cell to be synced to the model
-     * @return {@code true} if the model changed after syncing it from the view
-     *
-     * @since 1.0
-     */
-    protected boolean updateModelAt( final int row, final int column ) {
-        // If the index is out of bounds, report an error and return.
-        final int lastRowIndex = getLastRowIndex();
-        if ( ( row < 0 ) || ( row > lastRowIndex ) ) {
-            System.err.println( "WARNING: invalid table row index in " + toString() ); //$NON-NLS-1$
-            return false;
-        }
-        return true;
-    }
 
     /**
      * Post-processes anything that needs to happen after the model is synced.
@@ -472,40 +411,32 @@ public abstract class JxTablePanel extends JxPanel {
      * This method will generally be invoked inside event callbacks; the same
      * ones that invoke the model update methods.
      *
-     * @param row
-     *            The row index for the table cell that was synced to the model
-     * @param column
-     *            The column index for the table cell that was synced to the
-     *            model
-     * @param modelChanged
-     *            {@code true} if the model changed after syncing it from the
-     *            view
-     *
+     * @param row          The row index for the table cell that was synced to
+     *                     the model
+     * @param column       The column index for the table cell that was synced
+     *                     to the model
+     * @param modelChanged {@code true} if the model changed after syncing it
+     *                     from the view
      * @since 1.0
      */
     protected void updateModelPostProcessing( final int row,
                                               final int column,
-                                              final boolean modelChanged ) {}
-
-    //////////////////////// Vectorization methods ///////////////////////////
+                                              final boolean modelChanged ) {
+    }
 
     /**
      * This method vectorizes the table, via direct custom graphics calls.
      *
-     * @param graphicsContext
-     *            The {@link Graphics2D} Graphics Context for vectorizing the
-     *            content of this component
-     * @param offsetX
-     *            The initial offset to apply along the x-axis for positioning
-     *            the table rows in the vectorized output
-     * @param offsetY
-     *            The initial offset to apply along the y-axis for positioning
-     *            the table columns in the vectorized output
-     * @param rowsToExclude
-     *            A {@link HashSet} of the rows to exclude from vectorization;
-     *            not required to be contiguous
-     *
-     * @version 1.0
+     * @param graphicsContext The {@link Graphics2D} Graphics Context for
+     *                        vectorizing the content of this component
+     * @param offsetX         The initial offset to apply along the x-axis for
+     *                        positioning the table rows in the vectorized
+     *                        output
+     * @param offsetY         The initial offset to apply along the y-axis for
+     *                        positioning the table columns in the vectorized
+     *                        output
+     * @param rowsToExclude   A {@link HashSet} of the rows to exclude from
+     *                        vectorization; not required to be contiguous
      */
     public final void vectorize( final Graphics2D graphicsContext,
                                  final int offsetX,
@@ -523,37 +454,30 @@ public abstract class JxTablePanel extends JxPanel {
                                                     backgroundColor );
     }
 
-    ////////////////////// Table manipulation methods ////////////////////////
-
     /**
      * Cancels cell editing on all of the table columns.
      *
      * @since 1.0
      */
     public final void cancelCellEditing() {
-        for ( int column = firstColumnIndex; column <= lastColumnIndex; column++ ) {
-            final CellEditor cellEditor =
-                                        table.getColumnModel().getColumn( column ).getCellEditor();
+        for ( int column = firstColumnIndex;
+              column <= lastColumnIndex;
+              column++ ) {
+            final CellEditor cellEditor = table.getColumnModel()
+                                               .getColumn( column )
+                                               .getCellEditor();
             if ( cellEditor != null ) {
                 cellEditor.cancelCellEditing();
             }
         }
     }
 
-    /**
-     * Clears any active selection in the table.
-     *
-     * @since 1.0
-     */
-    public final void clearSelection() {
-        table.clearSelection();
-    }
+    //////////////////////// Vectorization methods ///////////////////////////
 
     /**
      * Returns the index of the last column in the table.
      *
      * @return The index of the last column in the table
-     *
      * @since 1.0
      */
     public final int getLastColumnIndex() {
@@ -561,17 +485,7 @@ public abstract class JxTablePanel extends JxPanel {
         return tableModel.getColumnCount() - 1;
     }
 
-    /**
-     * Returns the index of the last row in the table.
-     *
-     * @return The index of the last row in the table
-     *
-     * @since 1.0
-     */
-    public final int getLastRowIndex() {
-        final TableModel tableModel = table.getModel();
-        return tableModel.getRowCount() - 1;
-    }
+    ////////////////////// Table manipulation methods ////////////////////////
 
     /**
      * Returns the number of selected rows, or zero if none selected.
@@ -581,8 +495,8 @@ public abstract class JxTablePanel extends JxPanel {
     public final int getNumberOfSelectedRows() {
         final Integer[] selectedRowIndices = getSelectedRows();
         final int numberOfSelectedRows = ( selectedRowIndices != null )
-            ? selectedRowIndices.length
-            : 0;
+                                         ? selectedRowIndices.length
+                                         : 0;
 
         return numberOfSelectedRows;
     }
@@ -594,7 +508,6 @@ public abstract class JxTablePanel extends JxPanel {
      *
      * @return A list of the selected table row indices, or {@code null} if none
      *         selected
-     *
      * @since 1.0
      */
     public final Integer[] getSelectedRows() {
@@ -610,7 +523,8 @@ public abstract class JxTablePanel extends JxPanel {
         // of indices in reverse numerical order.
         final Integer[] selectedRowIndices = new Integer[ selectionLength ];
         for ( int rowIndex = 0; rowIndex < selectionLength; rowIndex++ ) {
-            selectedRowIndices[ rowIndex ] = Integer.valueOf( selectedTableRows[ rowIndex ] );
+            selectedRowIndices[ rowIndex ]
+                    = Integer.valueOf( selectedTableRows[ rowIndex ] );
         }
         Arrays.sort( selectedRowIndices, Collections.reverseOrder() );
 
@@ -621,11 +535,10 @@ public abstract class JxTablePanel extends JxPanel {
      * Returns the hierarchically-lower-most selected row, or the last row in
      * the table if none were selected.
      *
-     * @param minimumRowIndex
-     *            The lowest index that is considered valid for the selected row
+     * @param minimumRowIndex The lowest index that is considered valid for the
+     *                        selected row
      * @return The hierarchically-lower-most selected row, or the last row in
      *         the table if none were selected
-     *
      * @since 1.0
      */
     public final int getSelectedRow( final int minimumRowIndex ) {
@@ -635,7 +548,8 @@ public abstract class JxTablePanel extends JxPanel {
         int selectionIndex = minimumRowIndex - 1;
 
         final Integer[] selectedRowIndices = getSelectedRows();
-        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length > 0 ) ) {
+        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length
+                                                 > 0 ) ) {
             final int maximumRowIndex = selectedRowIndices.length - 1;
             selectionIndex = selectedRowIndices[ maximumRowIndex ].intValue();
         }
@@ -644,11 +558,23 @@ public abstract class JxTablePanel extends JxPanel {
             // the default selection to be the last valid row index.
             if ( autoSelectionEnabled ) {
                 final int maximumRowIndex = getLastRowIndex();
-                selectionIndex = FastMath.max( selectionIndex, maximumRowIndex );
+                selectionIndex = FastMath.max( selectionIndex,
+                                               maximumRowIndex );
             }
         }
 
         return selectionIndex;
+    }
+
+    /**
+     * Returns the index of the last row in the table.
+     *
+     * @return The index of the last row in the table
+     * @since 1.0
+     */
+    public final int getLastRowIndex() {
+        final TableModel tableModel = table.getModel();
+        return tableModel.getRowCount() - 1;
     }
 
     /**
@@ -674,9 +600,7 @@ public abstract class JxTablePanel extends JxPanel {
      * performant, as it avoids the interim state where the selected row index
      * is deliberately set to the invalid selection indicator of "-1".
      *
-     * @param rowIndex
-     *            The index of the table row to select
-     *
+     * @param rowIndex The index of the table row to select
      * @since 1.0
      */
     public void selectRow( final int rowIndex ) {
@@ -693,33 +617,39 @@ public abstract class JxTablePanel extends JxPanel {
         // the requested row is invalid. If the table is now empty, select
         // nothing as otherwise an index out of range exception is thrown.
         final int lastRowIndex = getLastRowIndex();
-        final int adjustedRowIndex = ( ( rowIndex < 0 ) || ( rowIndex > lastRowIndex ) )
-            ? lastRowIndex
-            : FastMath.min( rowIndex, lastRowIndex );
+        final int adjustedRowIndex = ( ( rowIndex < 0 ) || ( rowIndex
+                                                             > lastRowIndex ) )
+                                     ? lastRowIndex
+                                     : FastMath.min( rowIndex, lastRowIndex );
         if ( adjustedRowIndex >= 0 ) {
             table.setRowSelectionInterval( adjustedRowIndex, adjustedRowIndex );
         }
     }
 
     /**
-     * Selects the specified cell in the table.
-     *
-     * @param rowIndex
-     *            The row index of the table cell to select
-     * @param columnIndex
-     *            The column index of the table cell to select
+     * Clears any active selection in the table.
      *
      * @since 1.0
      */
-    public final void selectCell( final int rowIndex, final int columnIndex ) {
+    public final void clearSelection() {
+        table.clearSelection();
+    }
+
+    /**
+     * Selects the specified cell in the table.
+     *
+     * @param rowIndex    The row index of the table cell to select
+     * @param columnIndex The column index of the table cell to select
+     * @since 1.0
+     */
+    public final void selectCell( final int rowIndex,
+                                  final int columnIndex ) {
         // First select the row. This is necessary even if redundant.
         table.setRowSelectionInterval( rowIndex, rowIndex );
 
         // Now select the column. This should retain the selected row.
         table.setColumnSelectionInterval( columnIndex, columnIndex );
     }
-
-    //////////////////////// XPanel method overrides /////////////////////////
 
     /**
      * Returns the status of the view-to-model syncing ({@code true} if the data
@@ -730,7 +660,6 @@ public abstract class JxTablePanel extends JxPanel {
      * anywhere in the table.
      *
      * @return {@code true} if the model changed after syncing it from the view
-     *
      * @since 1.0
      */
     @Override
@@ -748,7 +677,54 @@ public abstract class JxTablePanel extends JxPanel {
     }
 
     /**
-     * Syncs the view to the data model hierarchically on the full panel layout.
+     * Updates the model to match the table view at the specified row.
+     * <p>
+     * Check for columns to exclude, such as action buttons, to avoid side
+     * effects of bringing another window forward.
+     *
+     * @param row The row index for the table row to be synced to the model
+     * @return {@code true} if the model changed after syncing it from the view
+     * @since 1.0
+     */
+    public final boolean updateModelAt( final int row ) {
+        boolean modelChanged = false;
+        final TableModel tableModel = table.getModel();
+        final int numberOfColumns = tableModel.getColumnCount();
+
+        // Iterate through the individual columns in the current row.
+        for ( int column = 0; column < numberOfColumns; column++ ) {
+            modelChanged |= updateModelAt( row, column );
+        }
+
+        return modelChanged;
+    }
+
+    //////////////////////// XPanel method overrides /////////////////////////
+
+    /**
+     * Updates the model to match the table view at the specified cell.
+     *
+     * @param row    The row index for the table cell to be synced to the model
+     * @param column The column index for the table cell to be synced to the
+     *               model
+     * @return {@code true} if the model changed after syncing it from the view
+     * @since 1.0
+     */
+    protected boolean updateModelAt( final int row,
+                                     final int column ) {
+        // If the index is out of bounds, report an error and return.
+        final int lastRowIndex = getLastRowIndex();
+        if ( ( row < 0 ) || ( row > lastRowIndex ) ) {
+            System.err.println( "WARNING: invalid table row index in "
+                                + toString() ); //$NON-NLS-1$
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Syncs the view to the data model hierarchically on the full panel
+     * layout.
      * <p>
      * As not all derived classes have data to sync, declaring this as abstract
      * is the wrong approach, so we provide a default no-op implementation.
@@ -756,31 +732,7 @@ public abstract class JxTablePanel extends JxPanel {
      * @since 1.0
      */
     @Override
-    public void updateView() {}
-
-    /**
-     * Sets the enablement of this panel, regarding user input response.
-     * <p>
-     * This method augments the normal panel enablement behavior to account for
-     * an oversight by the Swing development team in not accounting for the
-     * presence of a {@link TitledBorder}. It proved to be very confusing for
-     * users to see the controls disabled inside the bordered layout manager,
-     * but for the border itself and its title to be enabled.
-     *
-     * @param enabled
-     *            Flag for whether this panel should be enabled or not
-     *
-     * @since 1.0
-     */
-    @Override
-    public void setEnabled( final boolean enabled ) {
-        super.setEnabled( enabled );
-
-        // Forward this method to the subcomponents.
-        mainPanel.setEnabled( enabled );
-        scrollableTablePanel.setEnabled( enabled );
-        scrollPane.setEnabled( enabled );
-        table.setEnabled( enabled );
+    public void updateView() {
     }
 
     /**
@@ -795,9 +747,7 @@ public abstract class JxTablePanel extends JxPanel {
      * method override, before adding support for GUI elements unique to the
      * derived class hierarchy.
      *
-     * @param backColor
-     *            The current background color to apply to this panel
-     *
+     * @param backColor The current background color to apply to this panel
      * @since 1.0
      */
     @Override
@@ -806,7 +756,8 @@ public abstract class JxTablePanel extends JxPanel {
         super.setForegroundFromBackground( backColor );
 
         // Make sure the foreground color is never masked by the background.
-        final Color foreColor = ColorUtilities.getForegroundFromBackground( backColor );
+        final Color foreColor = ColorUtilities.getForegroundFromBackground(
+                backColor );
 
         // Forward this method to the subcomponents.
         mainPanel.setBackground( backColor );
@@ -832,4 +783,26 @@ public abstract class JxTablePanel extends JxPanel {
         table.setForegroundFromBackground( Color.WHITE );
     }
 
+    /**
+     * Sets the enablement of this panel, regarding user input response.
+     * <p>
+     * This method augments the normal panel enablement behavior to account for
+     * an oversight by the Swing development team in not accounting for the
+     * presence of a {@link TitledBorder}. It proved to be very confusing for
+     * users to see the controls disabled inside the bordered layout manager,
+     * but for the border itself and its title to be enabled.
+     *
+     * @param enabled Flag for whether this panel should be enabled or not
+     * @since 1.0
+     */
+    @Override
+    public void setEnabled( final boolean enabled ) {
+        super.setEnabled( enabled );
+
+        // Forward this method to the subcomponents.
+        mainPanel.setEnabled( enabled );
+        scrollableTablePanel.setEnabled( enabled );
+        scrollPane.setEnabled( enabled );
+        table.setEnabled( enabled );
+    }
 }

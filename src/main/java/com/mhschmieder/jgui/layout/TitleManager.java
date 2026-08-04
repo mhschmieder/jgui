@@ -43,12 +43,11 @@ import java.awt.Graphics2D;
  * related to title handling, from the rest of vector output, so that it only
  * needs to be implemented in a few places.
  * <p>
- * This functionality might be augmented at some point to add support for
- * styled character data using the {@code TextLayout} class in AWT.
- *
- * @version 1.0
+ * This functionality might be augmented at some point to add support for styled
+ * character data using the {@code TextLayout} class in AWT.
  *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public interface TitleManager {
 
@@ -56,7 +55,6 @@ public interface TitleManager {
      * Returns the title that is managed by the implementing component.
      *
      * @return The title that is managed by the implementing component
-     *
      * @since 1.0
      */
     String getTitle();
@@ -67,9 +65,7 @@ public interface TitleManager {
      * graphics output pages anyway) and avoiding null pointers by replacing
      * with empty titles.
      *
-     * @param newTitle
-     *            The title that is managed by the implementing component
-     *
+     * @param newTitle The title that is managed by the implementing component
      * @since 1.0
      */
     void setTitle( final String newTitle );
@@ -80,7 +76,6 @@ public interface TitleManager {
      *
      * @return The x coordinate of the absolute position of the title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     int getTitleX();
@@ -91,7 +86,6 @@ public interface TitleManager {
      *
      * @return The y coordinate of the absolute position of the title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     int getTitleY();
@@ -105,7 +99,6 @@ public interface TitleManager {
      *
      * @return The x coordinate of the relative position of the title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     int getTitleOffsetX();
@@ -119,7 +112,6 @@ public interface TitleManager {
      *
      * @return The y coordinate of the relative position of the title for
      *         downstream consumers
-     *
      * @since 1.0
      */
     int getTitleOffsetY();
@@ -134,12 +126,9 @@ public interface TitleManager {
      * the top of the visible layout of the existing page layout, adding it
      * above the existing on-screen content.
      *
-     * @param graphicsContext
-     *            The {@link Graphics2D} Graphics Context to use for drawing the
-     *            title
-     *
+     * @param graphicsContext The {@link Graphics2D} Graphics Context to use for
+     *                        drawing the title
      * @since 1.0
      */
     void drawTitle( final Graphics2D graphicsContext );
-
 }

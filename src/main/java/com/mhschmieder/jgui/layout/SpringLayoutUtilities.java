@@ -30,11 +30,12 @@
  */
 package com.mhschmieder.jgui.layout;
 
+import java.awt.Component;
+import java.awt.Container;
+
 import javax.swing.Spring;
 import javax.swing.SpringLayout;
 import javax.swing.SpringLayout.Constraints;
-import java.awt.Component;
-import java.awt.Container;
 
 /**
  * {@code SpringLayoutUtilities} is a utility class for working more effectively
@@ -43,11 +44,17 @@ import java.awt.Container;
  * This code is based on an original tutorial that was meant to be folded into
  * the JDK/JRE but for some reason never was.
  *
- * @version 1.0
- *
  * @author Mark Schmieder
+ * @version 1.0
  */
 public final class SpringLayoutUtilities {
+
+    /**
+     * The default constructor is disabled, as this is a static utilities
+     * class.
+     */
+    private SpringLayoutUtilities() {
+    }
 
     /**
      * This method serves merely as a sanity check that the Maven integration
@@ -57,10 +64,8 @@ public final class SpringLayoutUtilities {
      * complex projects with dependencies (this project is quite simple and has
      * no dependencies at this time, until more functionality is added).
      *
-     * @param args
-     *            The command-line arguments for executing this class as the
-     *            main entry point for an application
-     *
+     * @param args The command-line arguments for executing this class as the
+     *             main entry point for an application
      * @since 1.0
      */
     public static void main( final String[] args ) {
@@ -68,30 +73,18 @@ public final class SpringLayoutUtilities {
     }
 
     /**
-     * The default constructor is disabled, as this is a static utilities class.
-     */
-    private SpringLayoutUtilities() {}
-
-    /**
      * Aligns the first {@code rows} {@code cols} components of {@code parent}
      * in a grid. Each component in a column is as wide as the maximum preferred
      * width of the components in that column; height is similarly determined
      * for each row. The parent is made just big enough to fit them all.
      *
-     * @param parent
-     *            The parent container for the layout manager
-     * @param rows
-     *            The number of rows in the layout
-     * @param cols
-     *            The number of columns in the layout
-     * @param initialX
-     *            The x location to start the grid at
-     * @param initialY
-     *            The y location to start the grid at
-     * @param xPad
-     *            The x padding between cells
-     * @param yPad
-     *            The y padding between cells
+     * @param parent   The parent container for the layout manager
+     * @param rows     The number of rows in the layout
+     * @param cols     The number of columns in the layout
+     * @param initialX The x location to start the grid at
+     * @param initialY The y location to start the grid at
+     * @param xPad     The x padding between cells
+     * @param yPad     The y padding between cells
      */
     public static void makeGrid( final Container parent,
                                  final int rows,
@@ -105,7 +98,8 @@ public final class SpringLayoutUtilities {
             layout = ( SpringLayout ) parent.getLayout();
         }
         catch ( final ClassCastException cce ) {
-            System.err.println( "The first argument to makeGrid must use SpringLayout." ); //$NON-NLS-1$
+            System.err.println(
+                    "The first argument to makeGrid must use SpringLayout." ); //$NON-NLS-1$
             return;
         }
 
@@ -117,10 +111,13 @@ public final class SpringLayoutUtilities {
 
         // Calculate Springs that are the max of the width/height so that all
         // cells have the same size.
-        Spring maxWidthSpring = layout.getConstraints( parent.getComponent( 0 ) ).getWidth();
-        Spring maxHeightSpring = layout.getConstraints( parent.getComponent( 0 ) ).getWidth();
+        Spring maxWidthSpring
+                = layout.getConstraints( parent.getComponent( 0 ) ).getWidth();
+        Spring maxHeightSpring
+                = layout.getConstraints( parent.getComponent( 0 ) ).getWidth();
         for ( int i = 1; i < max; i++ ) {
-            final Constraints cons = layout.getConstraints( parent.getComponent( i ) );
+            final Constraints cons = layout.getConstraints( parent.getComponent(
+                    i ) );
 
             maxWidthSpring = Spring.max( maxWidthSpring, cons.getWidth() );
             maxHeightSpring = Spring.max( maxHeightSpring, cons.getHeight() );
@@ -129,7 +126,8 @@ public final class SpringLayoutUtilities {
         // Apply the new width/height Spring. This forces all the
         // components to have the same size.
         for ( int i = 0; i < max; i++ ) {
-            final Constraints constraints = layout.getConstraints( parent.getComponent( i ) );
+            final Constraints constraints
+                    = layout.getConstraints( parent.getComponent( i ) );
 
             constraints.setWidth( maxWidthSpring );
             constraints.setHeight( maxHeightSpring );
@@ -140,7 +138,8 @@ public final class SpringLayoutUtilities {
         Constraints lastConstraints = null;
         Constraints lastRowConstraints = null;
         for ( int i = 0; i < max; i++ ) {
-            final Constraints constraints = layout.getConstraints( parent.getComponent( i ) );
+            final Constraints constraints
+                    = layout.getConstraints( parent.getComponent( i ) );
             if ( constraints != null ) {
                 if ( ( i % cols ) == 0 ) {
                     // Start of new row.
@@ -149,9 +148,8 @@ public final class SpringLayoutUtilities {
                 }
                 else if ( lastConstraints != null ) {
                     // X position depends on previous component.
-                    constraints
-                            .setX( Spring.sum( lastConstraints.getConstraint( SpringLayout.EAST ),
-                                               xPadSpring ) );
+                    constraints.setX( Spring.sum( lastConstraints.getConstraint(
+                            SpringLayout.EAST ), xPadSpring ) );
                 }
 
                 if ( ( i / cols ) == 0 ) {
@@ -160,9 +158,8 @@ public final class SpringLayoutUtilities {
                 }
                 else if ( lastRowConstraints != null ) {
                     // Y position depends on previous row.
-                    constraints.setY( Spring
-                            .sum( lastRowConstraints.getConstraint( SpringLayout.SOUTH ),
-                                  yPadSpring ) );
+                    constraints.setY( Spring.sum( lastRowConstraints.getConstraint(
+                            SpringLayout.SOUTH ), yPadSpring ) );
                 }
 
                 lastConstraints = constraints;
@@ -171,17 +168,16 @@ public final class SpringLayoutUtilities {
 
         // Set the parent's overall size constraints.
         if ( lastConstraints != null ) {
-            final Constraints parentConstraints = layout.getConstraints( parent );
-            parentConstraints
-                    .setConstraint( SpringLayout.SOUTH,
-                                    Spring.sum( Spring.constant( yPad ),
-                                                lastConstraints
-                                                        .getConstraint( SpringLayout.SOUTH ) ) );
-            parentConstraints
-                    .setConstraint( SpringLayout.EAST,
-                                    Spring.sum( Spring.constant( xPad ),
-                                                lastConstraints
-                                                        .getConstraint( SpringLayout.EAST ) ) );
+            final Constraints parentConstraints
+                    = layout.getConstraints( parent );
+            parentConstraints.setConstraint( SpringLayout.SOUTH,
+                                             Spring.sum( Spring.constant( yPad ),
+                                                         lastConstraints.getConstraint(
+                                                                 SpringLayout.SOUTH ) ) );
+            parentConstraints.setConstraint( SpringLayout.EAST,
+                                             Spring.sum( Spring.constant( xPad ),
+                                                         lastConstraints.getConstraint(
+                                                                 SpringLayout.EAST ) ) );
         }
     }
 
@@ -191,20 +187,13 @@ public final class SpringLayoutUtilities {
      * width of the components in that column; height is similarly determined
      * for each row. The parent is made just big enough to fit them all.
      *
-     * @param parent
-     *            The parent container for the layout manager
-     * @param rows
-     *            The number of rows in the layout
-     * @param cols
-     *            The number of columns in the layout
-     * @param initialX
-     *            The x location to start the grid at
-     * @param initialY
-     *            The y location to start the grid at
-     * @param xPad
-     *            The x padding between cells
-     * @param yPad
-     *            The y padding between cells
+     * @param parent   The parent container for the layout manager
+     * @param rows     The number of rows in the layout
+     * @param cols     The number of columns in the layout
+     * @param initialX The x location to start the grid at
+     * @param initialY The y location to start the grid at
+     * @param xPad     The x padding between cells
+     * @param yPad     The y padding between cells
      */
     public static void makeCompactGrid( final Container parent,
                                         final int rows,
@@ -218,7 +207,9 @@ public final class SpringLayoutUtilities {
             layout = ( SpringLayout ) parent.getLayout();
         }
         catch ( final ClassCastException cce ) {
-            System.err.println( "The first argument to makeCompactGrid must use SpringLayout." ); //$NON-NLS-1$
+            System.err.println(
+                    "The first argument to makeCompactGrid must use "
+                    + "SpringLayout." ); //$NON-NLS-1$
             return;
         }
 
@@ -227,10 +218,17 @@ public final class SpringLayoutUtilities {
         for ( int c = 0; c < cols; c++ ) {
             Spring width = Spring.constant( 0 );
             for ( int r = 0; r < rows; r++ ) {
-                width = Spring.max( width, getConstraintsForCell( parent, cols, r, c ).getWidth() );
+                width = Spring.max( width,
+                                    getConstraintsForCell( parent,
+                                                           cols,
+                                                           r,
+                                                           c ).getWidth() );
             }
             for ( int r = 0; r < rows; r++ ) {
-                final Constraints constraints = getConstraintsForCell( parent, cols, r, c );
+                final Constraints constraints = getConstraintsForCell( parent,
+                                                                       cols,
+                                                                       r,
+                                                                       c );
                 constraints.setX( x );
                 constraints.setWidth( width );
             }
@@ -243,10 +241,16 @@ public final class SpringLayoutUtilities {
             Spring height = Spring.constant( 0 );
             for ( int c = 0; c < cols; c++ ) {
                 height = Spring.max( height,
-                                     getConstraintsForCell( parent, cols, r, c ).getHeight() );
+                                     getConstraintsForCell( parent,
+                                                            cols,
+                                                            r,
+                                                            c ).getHeight() );
             }
             for ( int c = 0; c < cols; c++ ) {
-                final Constraints constraints = getConstraintsForCell( parent, cols, r, c );
+                final Constraints constraints = getConstraintsForCell( parent,
+                                                                       cols,
+                                                                       r,
+                                                                       c );
                 constraints.setY( y );
                 constraints.setHeight( height );
             }
@@ -267,18 +271,12 @@ public final class SpringLayoutUtilities {
      * match revisions within the Swing toolkit. It is used by
      * {@link #makeCompactGrid}.
      *
-     * @param parent
-     *            The parent container for the layout manager
-     * @param cols
-     *            The number of columns in the layout
-     * @param row
-     *            The row to query for layout constraints
-     * @param col
-     *            The column to query for layout constraints
+     * @param parent The parent container for the layout manager
+     * @param cols   The number of columns in the layout
+     * @param row    The row to query for layout constraints
+     * @param col    The column to query for layout constraints
      * @return The {@link Constraints} for the {@link SpringLayout} associated
      *         with the provided {@link Container}, given a row and a column
-     *
-     * @version 1.0
      */
     private static Constraints getConstraintsForCell( final Container parent,
                                                       final int cols,
@@ -294,5 +292,4 @@ public final class SpringLayoutUtilities {
 
         return constraints;
     }
-
 }
