@@ -53,6 +53,7 @@ import javax.swing.SwingConstants;
  * @version 1.0
  */
 public class JxLogoPanel extends JxPanel {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

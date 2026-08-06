@@ -55,6 +55,7 @@ import javax.swing.JPanel;
  */
 public class JxVectorizationCardPanel extends JxCardPanel
         implements VectorizationManager, VectorSource {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

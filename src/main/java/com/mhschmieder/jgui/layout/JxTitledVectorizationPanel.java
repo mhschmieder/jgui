@@ -64,6 +64,7 @@ import javax.swing.JPanel;
  */
 public class JxTitledVectorizationPanel extends JxVectorizationPanel
         implements TitleManager {
+
     /**
      * Guarantee additional padding to prevent the header title from clipping.
      */

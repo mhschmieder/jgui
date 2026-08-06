@@ -46,6 +46,7 @@ import javax.swing.JTabbedPane;
  * a JButton to close the tab it belongs to .
  */
 public class ButtonTabPanel extends JPanel {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

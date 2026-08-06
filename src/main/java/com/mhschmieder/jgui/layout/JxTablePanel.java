@@ -63,6 +63,7 @@ import javax.swing.table.TableModel;
  * @version 1.0
  */
 public abstract class JxTablePanel extends JxPanel {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

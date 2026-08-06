@@ -66,6 +66,7 @@ import javax.swing.border.TitledBorder;
  */
 public class JxPanel extends JPanel
         implements RenderingHintSource, ForegroundManager, ZBufferManager {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

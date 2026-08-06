@@ -43,6 +43,7 @@ import javax.swing.JPanel;
  * A simple panel that draws a checker board with the color over it.
  */
 public class ColorPanel extends JPanel {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

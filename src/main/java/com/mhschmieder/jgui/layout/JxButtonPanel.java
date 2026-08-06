@@ -39,6 +39,7 @@ import javax.swing.JButton;
 // NOTE: This class is used to format a single button in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.
 public class JxButtonPanel extends JxPanel {
+
     /**
      *
      */

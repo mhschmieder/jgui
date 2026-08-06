@@ -61,6 +61,7 @@ import javax.swing.JToolBar;
  */
 public class JxFrame extends JFrame
         implements RenderingHintSource, ForegroundManager {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

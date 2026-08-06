@@ -41,6 +41,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 public class JxLabeledTextFieldPanel extends JxPanel {
+
     /**
      *
      */

@@ -43,6 +43,7 @@ import java.awt.EventQueue;
  * @version 1.0
  */
 public abstract class JxDynamicTablePanel extends JxTablePanel {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

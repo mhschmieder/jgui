@@ -51,6 +51,7 @@ import javax.swing.JPanel;
  * @version 1.0
  */
 public class JxCardPanel extends JxPanel implements CardManager {
+
     /**
      * Unique Serial Version ID for this class, to avoid class loader
      * conflicts.

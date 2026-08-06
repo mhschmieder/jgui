@@ -45,6 +45,7 @@ import javax.swing.SwingConstants;
 // NOTE: This class is used to format a single combo box in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.
 public class JxComboBoxPanel extends JxPanel {
+
     /**
      *
      */
